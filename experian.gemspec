@@ -8,9 +8,9 @@ Gem::Specification.new do |spec|
   spec.version       = Experian::VERSION
   spec.authors       = ["Eric Hutzelman"]
   spec.email         = ["ehutzelman@gmail.com"]
-  spec.description   = %q{Gem for interacting with the Experian connect check API}
-  spec.summary       = %q{Gem for interacting with the Experian connect check API}
-  spec.homepage      = ""
+  spec.description   = "Ruby gem wrapper for the Experian net connect API."
+  spec.summary       = "Ruby gem wrapper for the Experian net connect API."
+  spec.homepage      = "http://github.com/ehutzelman/experian"
   spec.license       = "MIT"
 
   spec.files         = `git ls-files`.split($/)
