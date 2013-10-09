@@ -1,4 +1,15 @@
 source 'https://rubygems.org'
 
-# Specify your gem's dependencies in experian.gemspec
+gem 'rake'
+
+group :development do
+  gem 'pry'
+end
+
+group :test do
+  gem 'minitest'
+  gem 'webmock'
+  gem 'mocha', require: false
+end
+
 gemspec

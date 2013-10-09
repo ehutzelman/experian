@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.version       = Experian::VERSION
   spec.authors       = ["Eric Hutzelman"]
   spec.email         = ["ehutzelman@gmail.com"]
-  spec.description   = %q{TODO: Write a gem description}
-  spec.summary       = %q{TODO: Write a gem summary}
+  spec.description   = %q{Gem for interacting with the Experian connect check API}
+  spec.summary       = %q{Gem for interacting with the Experian connect check API}
   spec.homepage      = ""
   spec.license       = "MIT"
 
@@ -18,6 +18,7 @@ Gem::Specification.new do |spec|
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
+  spec.add_dependency "excon"
+  spec.add_dependency "builder"
   spec.add_development_dependency "bundler", "~> 1.3"
-  spec.add_development_dependency "rake"
 end
