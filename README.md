@@ -146,7 +146,7 @@ Format (ARF). The ruby wrapper for the response parses this ARF string into segm
 *The Automated Response Format (ARF) is a compressed, and/or abbreviated response in which a numeric value or an abbreviated
 code is sent rather than the verbiage normally associated with Teletype report.*
 
-```
+```ruby
 client.response.host_response
 # => "1100028100813165523TNJ10600@1110104SC 3XY  YXXXXXXX12AMBLE,ROBERT64Fraud alert on account. Deposit required to complete enrollment.@12500220603PRTBPPCTQQ@3220018 666153036@335006212ROBERT AMBLE1955A124ANNA                E61212261955@335002814ROBERT K AMBLE    @335002511KELLY AMBLE    @335003218ROBERT KELLY AMBLE    @3360074031308131003276502S        376717 11TH AVE  /BROOKLYN NY 112195904@..."
 ```
