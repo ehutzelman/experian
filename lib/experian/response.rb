@@ -45,7 +45,7 @@ module Experian
       end
 
       def success?
-        completion_code == "0000" && header_segment
+        completion_code == "0000"
       end
 
       def error?

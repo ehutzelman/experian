@@ -57,7 +57,7 @@ module Experian
       def customer_names
         segments(335).map do |segment|
           segment[9, segment[7..8].to_i]
-        end.join
+        end
       end
 
       def customer_addresses
@@ -75,6 +75,12 @@ module Experian
         return unless connect_check_segment
         connect_check_segment[25 + customer_name_length + 2, customer_message_length]
       end
+
+      def success?
+        super && !header_segment.nil?
+      end
+
+      private
 
       def consumer_statement_segment
         segment(365)
