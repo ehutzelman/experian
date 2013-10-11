@@ -3,6 +3,7 @@ require 'minitest/autorun'
 require 'minitest/pride'
 require 'webmock/minitest'
 require 'mocha/setup'
+require 'timecop'
 
 def fixture_path
   File.expand_path("../fixtures", __FILE__)
