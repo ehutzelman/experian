@@ -44,18 +44,22 @@ module Experian
         segments(segment_id).first
       end
 
-      def success?
-        completion_code == "0000"
-      end
-
-      def error?
-        completion_code != "0000" || !error_segment.nil?
+      def header_segment
+        segment(110)
       end
 
       # error_segment returns the entire host response (segments 100, 200, 900)
       # since error responses do not separate segments with "@".
       def error_segment
         segment(100)
+      end
+
+      def success?
+        completion_code == "0000" && !header_segment.nil?
+      end
+
+      def error?
+        completion_code != "0000" || !error_segment.nil?
       end
 
       # The error message segment is embedded in the error segment :(

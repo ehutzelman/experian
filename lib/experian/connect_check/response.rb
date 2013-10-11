@@ -76,10 +76,6 @@ module Experian
         connect_check_segment[25 + customer_name_length + 2, customer_message_length]
       end
 
-      def success?
-        super && !header_segment.nil?
-      end
-
       private
 
       def consumer_statement_segment
@@ -92,10 +88,6 @@ module Experian
 
       def risk_score_segment
         segment(125)
-      end
-
-      def header_segment
-        segment(110)
       end
 
     end
