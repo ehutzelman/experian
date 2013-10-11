@@ -1,22 +1,47 @@
-# Experian
+# Experian Ruby Gem
 
-Ruby Wrapper for the Experian Net Connect API.
+Ruby Wrapper for portions of the Experian Net Connect API. Experian exposes nearly 30 different services through the Net Connect API.
+This gem currently only implements the Connect Check product (consumer credit scoring and identity validation), although
+expanding it to support the other products should be straightforward.
 
-Net Connect is a business-to-business application gateway designed to allow access to Experian legacy systems via the public
+*Net Connect is a business-to-business application gateway designed to allow access to Experian legacy systems via the public
 Internet or Experian’s private TCP/IP extranet transport. It is a secure 168-bit encrypted transaction, using HTTPS.
 Net Connect is a non-browser-based system requiring Experian certified client or vendor software at the user's location.
 It utilizes XML for the input inquiry and has the capability of returning field-level XML, as well as our standard Automated
 Response Format (ARF) (computer readable), Teletype Response Format (TTY) (human readable) and Parallel Profile
 (both ARF and TTY in one response). Net Connect meets the encryption standards requirement in the Safeguards section of the
-Gramm- Leach-Bliley (GLB) Act.
+Gramm- Leach-Bliley (GLB) Act.*
 
-##### Net Connect includes:
+#### Net Connect Products
 
-1. A service to determine the correct URL for accessing Net Connect
-2. Support for Experian’s Single Sign-On (SSO) service
-3. Support for XML inquiries and response
-4. Access to Experian's legacy systems from a single URL
-
+* Address Update
+* Authentication Services
+* BizID
+* Bullseye
+* Checkpoint - File One Verification Solution
+* Collection Advantage interactive
+* Collection Report
+* **Connect Check (implemented in this gem)**
+* Credit Profile
+* Custom Solution
+* Cross View
+* CU Decision Expert
+* Custom Strategist
+* Decode
+* Demographics
+* Direct Check
+* Employment Insight
+* Fraud Shield
+* Instant Prescreen
+* New Consumer Identification
+* Numeric Inquiry
+* Parallel Profile
+* Profile Summary
+* Precise ID
+* Precise ID Distributed
+* Risk Models
+* Social Search
+* Truvue
 
 ## Installation
 
@@ -34,7 +59,87 @@ Or install it yourself as:
 
 ## Usage
 
-TODO
+### Configuration
+
+Experian will provide you with the following authentication credentials when you sign up for their service:
+```ruby
+# Provide authentication credentials
+Experian.configure do |config|
+  config.eai = "X42PB93F"
+  config.preamble = "FCD2"
+  config.op_initials = "AB"
+  config.subcode = "1968543"
+  config.user = "user"
+  config.password = "password"
+  config.vendor_number = "P55"
+end
+
+# Route requests to Experian test server instead of production
+Experian.test_mode = true
+
+```
+
+### Using a product client
+
+Products are namespaced under the Experian module. Example of how to create a client for the Connect Check product:
+```ruby
+client = Experian::ConnectCheck::Client.new
+```
+
+Once you have a client, you can make requests:
+```ruby
+response = client.check_credit(first_name: "Homer", last_name: "Simpson", ssn: "123456789")
+
+response.success?
+# => true
+response.completion_message
+# => "Request processed successfully"
+response.credit_match_code
+# => "C"
+response.credit_match_code_message
+# => "ID Match"
+response.credit_score
+# => 846
+response.customer_message
+# => "Credit and ID have been verified and no deposit is required."
+response.customer_names
+# => ["HOMER J SIMPSON", "HOMER SIMPSON", "H SIMPSON", "PLOW KING"]
+response.customer_addresses
+# => ["96 JAMESTOWN BLVD  /HAMMONTON NJ 080372110",
+# => "1466 BALLY BUNION DR  /EGG HARBOR CITY NJ 082155118",
+# => "100 WEST LN  /HAMMONTON NJ 080371151"]
+```
+
+Alternatively, you can skip the explicit client instantiation and use the module level convenience method instead:
+```ruby
+response = Experian::ConnectCheck.check_credit(...)
+```
+
+
+### Handling errors from Experian
+```ruby
+response = client.check_credit(first_name: "Homer", last_name: "Simpson", ssn: "NaN")
+
+response.success?
+# => false
+response.error_message
+# => "Invalid request format"
+response.error_action_indicator_message
+# => "Correct and/or resubmit"
+```
+
+### Examine raw request and response XML
+If you need to troubleshoot by viewing the raw xml, it is accesssible on the request and response objects of the client:
+```ruby
+# Inspect the request XML that was sent to Experian
+client.request.xml
+# => "<?xml version='1.0' encoding='utf-8'?>..."
+
+# Inspect the response XML that was received from Experian
+client.response.xml
+# => "<?xml version='1.0' encoding='utf-8'?>..."
+```
+
 
 ## Contributing
 
@@ -46,7 +151,7 @@ TODO
 
 ## Copyright
 
-Copyright (c) 2013 Eric Hutzelman.
+Copyright (c) 2012-2013 Eric Hutzelman.
 See [LICENSE][] for details.
 
 [license]: LICENSE.txt
