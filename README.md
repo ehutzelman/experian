@@ -1,5 +1,11 @@
 # Experian Ruby Gem
 
+[![Gem Version](https://badge.fury.io/rb/experian.png)][gem]
+[![Build Status](https://secure.travis-ci.org/ehutzelman/experian.png?branch=master)][travis]
+
+[gem]: https://rubygems.org/gems/experian
+[travis]: http://travis-ci.org/ehutzelman/experian
+
 Ruby Wrapper for portions of the Experian Net Connect API. Experian exposes nearly 30 different services through the Net Connect API.
 This gem currently only implements the Connect Check product (consumer credit scoring and identity validation), although
 extending it to support the other products should be straightforward.
