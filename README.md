@@ -2,6 +2,7 @@
 
 [![Gem Version](https://badge.fury.io/rb/experian.png)][gem]
 [![Build Status](https://secure.travis-ci.org/ehutzelman/experian.png?branch=master)][travis]
+[![Code Climate](https://codeclimate.com/github/ehutzelman/experian.png)](https://codeclimate.com/github/ehutzelman/experian)
 
 [gem]: https://rubygems.org/gems/experian
 [travis]: http://travis-ci.org/ehutzelman/experian
