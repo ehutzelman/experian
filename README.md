@@ -69,6 +69,7 @@ Or install it yourself as:
 ### Configuration
 
 Experian will provide you with the following authentication credentials when you sign up for their service:
+
 ```ruby
 # Provide authentication credentials
 Experian.configure do |config|
@@ -83,17 +84,18 @@ end
 
 # Route requests to Experian test server instead of production
 Experian.test_mode = true
-
 ```
 
 ### Using a product client
 
 Products are namespaced under the Experian module. Example of how to create a client for the Connect Check product:
+
 ```ruby
 client = Experian::ConnectCheck::Client.new
 ```
 
 Once you have a client, you can make requests:
+
 ```ruby
 response = client.check_credit(first_name: "Homer", last_name: "Simpson", ssn: "123456789")
 
@@ -118,12 +120,13 @@ response.customer_addresses
 ```
 
 Alternatively, you can skip the explicit client instantiation and use the module level convenience method instead:
+
 ```ruby
 response = Experian::ConnectCheck.check_credit(first_name: "Homer", last_name: "Simpson", ...)
 ```
 
-
 ### Handling errors from Experian
+
 ```ruby
 response = client.check_credit(first_name: "Homer", last_name: "Simpson", ssn: "NaN")
 
@@ -137,6 +140,7 @@ response.error_action_indicator_message
 
 ### Examine raw request and response XML
 If you need to troubleshoot by viewing the raw XML, it is accesssible on the request and response objects of the client:
+
 ```ruby
 # Inspect the request XML that was sent to Experian
 client.request.xml
