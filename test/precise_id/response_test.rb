@@ -6,7 +6,7 @@ describe Experian::PreciseId::Response do
 
     describe :all_responses do
       before do
-        stub_experian_request("precise_id", "response.xml")
+        stub_experian_request("precise_id", "primary-response.xml")
         @response = Experian::PreciseId.check_id(first_name: "Homer", last_name: "Simpson", ssn: "123456789")
       end
 

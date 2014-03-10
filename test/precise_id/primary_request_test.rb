@@ -13,7 +13,7 @@ describe Experian::PreciseId::PrimaryRequest do
 
   it "creates a with all required fields" do
     request = Experian::PreciseId::PrimaryRequest.new(params)
-    assert_equal fixture("precise_id", "request.xml"), request.xml
+    assert_equal fixture("precise_id", "primary-request.xml"), request.xml
   end
 
   it "should include verbose if it's passed in" do
