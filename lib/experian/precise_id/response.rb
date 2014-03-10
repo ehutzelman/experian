@@ -2,7 +2,19 @@ module Experian
   module PreciseId
     class Response < Experian::Response
       def success?
-        completion_code == "0000" && !precise_id_server_section.nil?
+        completion_code == "0000" && has_precise_id_section? && !error?
+      end
+
+      def error?
+        completion_code != "0000" || !has_precise_id_section? || has_error_section?
+      end
+
+      def error_code
+        error_section["ErrorCode"]
+      end
+
+      def error_message
+        error_section["ErrorDescription"] || super
       end
 
       def session_id
@@ -38,6 +50,10 @@ module Experian
         precise_id_server_section["Summary"]
       end
 
+      def has_precise_id_section?
+        !!products_section["PreciseIDServer"]
+      end
+
       def precise_id_server_section
         products_section["PreciseIDServer"]
       end
@@ -48,6 +64,14 @@ module Experian
 
       def kba_section
         precise_id_server_section["KBA"]
+      end
+
+      def has_error_section?
+        !!error_section
+      end
+
+      def error_section
+        precise_id_server_section["Error"]
       end
     end
   end

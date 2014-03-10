@@ -56,6 +56,37 @@ describe Experian::PreciseId::Response do
       end
     end
 
+    describe "malformed response" do
+      before do
+        stub_experian_request("precise_id", "malformed-response.xml")
+        @response = Experian::PreciseId.check_id
+      end
+
+      it "reports an error" do
+        refute @response.success?
+        assert @response.error?        
+      end
+    end
+
+    describe "precise_id error" do
+      before do
+        stub_experian_request("precise_id", "error-response.xml")
+        @response = Experian::PreciseId.check_id
+      end
+
+      it "reports an error" do
+        refute @response.success?
+        assert @response.error?
+      end
+
+      it "returns the error code" do
+        assert_equal "010", @response.error_code
+      end
+
+      it "returns the error description" do
+        assert_equal "Consumer is a minor", @response.error_message
+      end
+    end
   end
 
 end
