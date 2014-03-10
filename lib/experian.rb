@@ -7,6 +7,7 @@ require "experian/client"
 require "experian/request"
 require "experian/response"
 require "experian/connect_check"
+require "experian/precise_id"
 
 module Experian
   include Experian::Constants
@@ -14,7 +15,7 @@ module Experian
   class << self
 
     attr_accessor :eai, :preamble, :op_initials, :subcode, :user, :password, :vendor_number
-    attr_accessor :test_mode
+    attr_accessor :test_mode, :experian_uri
 
     def configure
       yield self
@@ -47,7 +48,7 @@ module Experian
     end
 
     def perform_ecals_lookup
-      @net_connect_uri = URI.parse(Excon.get(ecals_uri.to_s).body)
+      @net_connect_uri = URI.parse(@experian_uri || Excon.get(ecals_uri.to_s).body)
       assert_experian_domain
       @ecals_last_update = Time.now
     rescue Excon::Errors::SocketError => e
