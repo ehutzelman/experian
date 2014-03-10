@@ -18,9 +18,9 @@ def stub_experian_uri_lookup
   stub_request(:get, Experian.ecals_uri.to_s).to_return(body: "http://fake.experian.com", status: 200)
 end
 
-def stub_experian_request(product, file)
+def stub_experian_request(product, file, status = 200)
   stub_experian_uri_lookup
-  stub_request(:post, "http://user:password@fake.experian.com").to_return(body: fixture(product, file), status: 200)
+  stub_request(:post, "http://user:password@fake.experian.com").to_return(body: fixture(product, file), status: status)
 end
 
 Experian.configure do |config|

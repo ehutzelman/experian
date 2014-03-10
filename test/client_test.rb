@@ -9,7 +9,7 @@ describe Experian::Client do
   end
 
   it "should submit the request and return the response body" do
-    Excon::Connection.any_instance.expects(:post).returns(stub(body: "fake body content", headers: {}))
+    Excon::Connection.any_instance.expects(:post).returns(stub(body: "fake body content", headers: {},status:200))
     assert_equal "fake body content", @client.submit_request
   end
 
@@ -22,7 +22,7 @@ describe Experian::Client do
   end
 
   it "should raise a forbidden exception if logon location header returned" do
-    Excon::Connection.any_instance.expects(:post).returns(stub(headers: { "Location" => "sso_logon" }))
+    Excon::Connection.any_instance.expects(:post).returns(stub(headers: { "Location" => "sso_logon" },status: 200))
     assert_raises(Experian::Forbidden) do
       @client.submit_request
     end

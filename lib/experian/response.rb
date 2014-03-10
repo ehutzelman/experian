@@ -14,6 +14,10 @@ module Experian
         @response["ErrorMessage"] || (Experian::Error.message(error_code) if error_code)
       end
 
+      def error_tag
+        @response["ErrorTag"]
+      end
+
       def host_response
         @response["HostResponse"]
       end
