@@ -12,6 +12,11 @@ module Experian
         @response = Response.new(submit_request)
       end
 
+      def send_answers(options = {})
+        @request = FinalRequest.new(options)
+        @response = Response.new(submit_request)
+      end
+
     end
   end
 end

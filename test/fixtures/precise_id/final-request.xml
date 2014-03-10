@@ -5,20 +5,18 @@
   <Request version="1.0" xmlns="http://www.experian.com/WebDelivery">
     <Products>
       <PreciseIDServer>
-        <KBAAddOn>
-          <XMLVersion>5.0</XMLVersion>
-          <KBAAnswers>
-            <OutWalletAnswerData>
-              <SessionID>test-session-id</SessionID>
-              <OutWalletAnswers>
-                <OutWalletAnswer1>2</OutWalletAnswer1>
-                <OutWalletAnswer2>3</OutWalletAnswer2>
-                <OutWalletAnswer3>2</OutWalletAnswer3>
-                <OutWalletAnswer4>4</OutWalletAnswer4>
-              </OutWalletAnswers>
-            </OutWalletAnswerData>
-          </KBAAnswers>
-        </KBAAddOn>
+        <XMLVersion>5.0</XMLVersion>
+        <KBAAnswers>
+          <OutWalletAnswerData>
+            <SessionID>test-session-id</SessionID>
+            <OutWalletAnswers>
+              <OutWalletAnswer1>2</OutWalletAnswer1>
+              <OutWalletAnswer2>3</OutWalletAnswer2>
+              <OutWalletAnswer3>2</OutWalletAnswer3>
+              <OutWalletAnswer4>4</OutWalletAnswer4>
+            </OutWalletAnswers>
+          </OutWalletAnswerData>
+        </KBAAnswers>
       </PreciseIDServer>
     </Products>
   </Request>
