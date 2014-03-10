@@ -23,7 +23,7 @@ module Experian
       Client.new.request_questions(options)
     end
 
-    def self.final_request(options = {})
+    def self.send_answers(options = {})
       Client.new.send_answers(options)
     end
   end

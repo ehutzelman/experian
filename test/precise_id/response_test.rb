@@ -56,6 +56,18 @@ describe Experian::PreciseId::Response do
       end
     end
 
+
+    describe :final_response do
+      before do
+        stub_experian_request("precise_id", "final-response.xml")
+        @response = Experian::PreciseId.send_answers(session_id: 'abc', answers: [1,2])
+      end
+
+      it "fetches the refer_code" do
+        assert_equal "REF", @response.accept_refer_code
+      end
+    end
+
     describe "malformed response" do
       before do
         stub_experian_request("precise_id", "malformed-response.xml")

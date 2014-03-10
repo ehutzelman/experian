@@ -29,6 +29,10 @@ module Experian
         initial_results_section["FinalDecision"]
       end
 
+      def accept_refer_code
+        precise_id_server_section["KBAScore"]["ScoreSummary"]["AcceptReferCode"]
+      end
+
       def questions
         return [] unless kba_section
         kba_section["QuestionSet"].collect do |question|
