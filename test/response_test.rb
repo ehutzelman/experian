@@ -24,14 +24,6 @@ describe Experian::Response do
     assert_equal "8276972", @response.transaction_id
   end
 
-  it "parses out defined segments into array" do
-    assert_equal 22, @response.segments.count
-  end
-
-  it "returns a specific segment" do
-    assert_equal "12500220603PRTBPPCTQQ", @response.segment(125)
-  end
-
   describe 'error fields' do
     before do
       @response = Experian::Response.new(fixture("connect_check", "response_error.xml"))
