@@ -11,4 +11,9 @@ describe Experian::PreciseId::Client do
     assert_kind_of Experian::PreciseId::Response, @client.check_id
   end
 
+  it "should perform a secondary inquiry" do
+    stub_experian_request("precise_id", "response.xml")
+    assert_kind_of Experian::PreciseId::Response, @client.request_questions
+  end
+
 end

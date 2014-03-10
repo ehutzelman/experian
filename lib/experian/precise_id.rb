@@ -17,5 +17,9 @@ module Experian
     def self.check_id(options = {})
       Client.new.check_id(options)
     end
+
+    def self.request_questions(options = {})
+      Client.new.request_questions(options)
+    end
   end
 end

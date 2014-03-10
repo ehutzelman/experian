@@ -17,6 +17,17 @@ module Experian
         initial_results_section["FinalDecision"]
       end
 
+      def questions
+        return [] unless kba_section
+        kba_section["QuestionSet"].collect do |question|
+          {
+            :type => question["QuestionType"].to_i,
+            :text => question["QuestionText"],
+            :choices => question["QuestionSelect"]["QuestionChoice"]
+          }
+        end
+      end
+
       private
 
       def initial_results_section
@@ -33,6 +44,10 @@ module Experian
 
       def products_section
         @response["Products"]
+      end
+
+      def kba_section
+        precise_id_server_section["KBA"]
       end
     end
   end

@@ -7,6 +7,11 @@ module Experian
         @response = Response.new(submit_request)
       end
 
+      def request_questions(options = {})
+        @request = SecondaryRequest.new(options)
+        @response = Response.new(submit_request)
+      end
+
     end
   end
 end
