@@ -1,11 +1,11 @@
 module Experian
   class Client
 
-    attr_reader :request, :response
+    attr_reader :request, :response, :raw_response
 
     def submit_request
-      connection = Excon.new(Experian.net_connect_uri.to_s, idempotent: true)
-      @raw_response = connection.post(body: request_body, headers: request_headers)
+      connection = Excon.new(request_uri, excon_options)
+      @raw_response = connection.post(body: request.body, headers: request.headers)
       validate_response
       @raw_response.body
 
@@ -13,12 +13,12 @@ module Experian
       raise Experian::ClientError, "Could not connect to Experian: #{e.message}"
     end
 
-    def request_body
-      URI.encode_www_form('NETCONNECT_TRANSACTION' => request.xml)
+    def request_uri
+      Experian.net_connect_uri.to_s
     end
 
-    def request_headers
-      { "Content-Type" => "application/x-www-form-urlencoded" }
+    def excon_options
+      {idempotent: true}
     end
 
     def validate_response
@@ -29,14 +29,18 @@ module Experian
         # incorrect base64 encoding in the authorization header;
         # client did not open SSL socket/not using HTTPS;
         # MTU needs to be changed to 1492.
-        raise Experian::Forbidden, "Authorization failed"
+        raise Experian::AuthenticationError
+      when 400
+        raise Experian::ArgumentError
       when 403
         # Transaction was authenticated but not authorized.
         # The user ID may not have access to Precise ID XML Gateway product or it may be locked due to too 
         # many password violations.
-        raise Experian::Forbidden, "Access forbidden"
+        raise Experian::Forbidden, "Access forbidden, please contact experian"
       when 404
-        raise Experian::ServerError, "Experian not available"
+        raise Experian::ServerError, "Experian not found"
+      when 500
+        raise Experian::ServerError, "Experian server error"
       else
         raise Experian::Forbidden, "Invalid Experian login credentials" if !!(@raw_response.headers["Location"] =~ /sso_logon/)
       end

@@ -8,6 +8,7 @@ require "experian/request"
 require "experian/response"
 require "experian/connect_check"
 require "experian/precise_id"
+require "experian/password_reset"
 
 module Experian
   include Experian::Constants
@@ -15,7 +16,7 @@ module Experian
   class << self
 
     attr_accessor :eai, :preamble, :op_initials, :subcode, :user, :password, :vendor_number
-    attr_accessor :test_mode, :experian_uri
+    attr_accessor :test_mode, :experian_uri, :proxy
 
     def configure
       yield self

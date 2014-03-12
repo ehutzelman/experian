@@ -19,5 +19,13 @@ module Experian
       end
     end
 
+    def body
+      URI.encode_www_form('NETCONNECT_TRANSACTION' => xml)
+    end
+
+    def headers
+      { "Content-Type" => "application/x-www-form-urlencoded" }
+    end
+
   end
 end

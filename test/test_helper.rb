@@ -23,6 +23,11 @@ def stub_experian_request(product, file, status = 200)
   stub_request(:post, "http://user:password@fake.experian.com").to_return(body: fixture(product, file), status: status)
 end
 
+def stub_password_reset(status = 200)
+  stub_request(:post, "https://user:password@ss3.experian.com/securecontrol/reset/passwordreset").
+    to_return(:status => status, :body => "", :headers => {})
+end
+
 Experian.configure do |config|
   config.eai = "X42PB93F"
   config.preamble = "FCD2"
@@ -32,4 +37,5 @@ Experian.configure do |config|
   config.password = "password"
   config.vendor_number = "P55"
   config.test_mode = true
+  config.proxy = 'http://example.com'
 end
