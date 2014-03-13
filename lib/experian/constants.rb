@@ -4,6 +4,8 @@ module Experian
     LOOKUP_SERVLET_URL = "http://www.experian.com/lookupServlet1"
     ECALS_TIMEOUT = 86400 # 24 hours in seconds
 
+    PASSWORD_RESET_URL = "https://ss3.experian.com/securecontrol/reset/passwordreset"
+
     LOOKUP_SERVICE_NAME = "AccessPoint"
     LOOKUP_SERVICE_VERSION = 1.0
 
