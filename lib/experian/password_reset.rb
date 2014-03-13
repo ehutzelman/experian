@@ -1,6 +1,5 @@
 require 'experian/password_reset/client'
 require 'experian/password_reset/request'
-require 'experian/password_reset/response'
 
 module Experian
   module PasswordReset

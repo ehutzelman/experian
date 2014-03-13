@@ -4,13 +4,14 @@ module Experian
 
       def request_password
         @request = Request.new(command: 'requestnewpassword')
-        @response = Response.new(submit_request)
+        submit_request # populates @raw_response, body returns ""
+        @raw_response.headers["Response"]
       end
 
       def reset_password(new_password)
         @request = Request.new(new_password: new_password, command: 'resetpassword')
-        @response = Response.new(submit_request)
-        @response.success?
+        submit_request
+        @raw_response.headers["Response"] == "SUCCESS"
       end
 
       def request_uri

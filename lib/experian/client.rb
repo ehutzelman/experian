@@ -4,21 +4,12 @@ module Experian
     attr_reader :request, :response, :raw_response
 
     def submit_request
-      connection = Excon.new(request_uri, excon_options)
-      @raw_response = connection.post(body: request.body, headers: request.headers)
+      @raw_response = post_request
       validate_response
       @raw_response.body
 
     rescue Excon::Errors::SocketError => e
       raise Experian::ClientError, "Could not connect to Experian: #{e.message}"
-    end
-
-    def request_uri
-      Experian.net_connect_uri.to_s
-    end
-
-    def excon_options
-      {idempotent: true}
     end
 
     def validate_response
@@ -44,6 +35,21 @@ module Experian
       else
         raise Experian::Forbidden, "Invalid Experian login credentials" if !!(@raw_response.headers["Location"] =~ /sso_logon/)
       end
+    end
+
+    private
+
+    def post_request
+      connection = Excon.new(request_uri, excon_options)
+      connection.post(body: request.body, headers: request.headers)
+    end
+
+    def excon_options
+      {idempotent: true}
+    end
+
+    def request_uri
+      Experian.net_connect_uri.to_s
     end
 
   end
