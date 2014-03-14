@@ -25,6 +25,12 @@ describe Experian::PasswordReset::Client do
       assert_kind_of TrueClass, @client.reset_password('password')
     end
 
+    it "applies the username and password to the request_uri" do
+      request_uri = @client.request_uri
+      assert_equal "user", request_uri.user
+      assert_equal "password", request_uri.password
+    end
+
     it "returns false if the response wasn't success" do
       @raw_response.stubs(:headers).returns('Response' => "FAILURE")
       assert_kind_of FalseClass, @client.reset_password('password')      

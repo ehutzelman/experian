@@ -2,6 +2,8 @@ module Experian
   module PasswordReset
     class Client < Experian::Client
 
+      SUCCESS_RESPONSE = "SUCCESS"
+
       def request_password
         @request = Request.new(command: 'requestnewpassword')
         submit_request # populates @raw_response, body returns ""
@@ -11,15 +13,15 @@ module Experian
       def reset_password(new_password)
         @request = Request.new(new_password: new_password, command: 'resetpassword')
         submit_request
-        @raw_response.headers["Response"] == "SUCCESS"
+        @raw_response.headers["Response"] == SUCCESS_RESPONSE
       end
 
       def request_uri
         # setup basic authentication
-        uri = URI.parse(Experian::Constants::PASSWORD_RESET_URL)
-        uri.user = Experian.user
-        uri.password = Experian.password
-        uri.to_s
+        URI.parse(Experian::Constants::PASSWORD_RESET_URL).tap do |u|
+          u.user = Experian.user
+          u.password = Experian.password
+        end
       end
 
       def excon_options

@@ -40,7 +40,7 @@ module Experian
     private
 
     def post_request
-      connection = Excon.new(request_uri, excon_options)
+      connection = Excon.new(request_uri.to_s, excon_options)
       connection.post(body: request.body, headers: request.headers)
     end
 
@@ -49,7 +49,7 @@ module Experian
     end
 
     def request_uri
-      Experian.net_connect_uri.to_s
+      Experian.net_connect_uri
     end
 
   end
