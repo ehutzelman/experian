@@ -22,7 +22,7 @@ module Experian
         # MTU needs to be changed to 1492.
         raise Experian::AuthenticationError
       when 400
-        raise Experian::ArgumentError
+        raise Experian::ArgumentError, "Input parameter is missing or invalid"
       when 403
         # Transaction was authenticated but not authorized.
         # The user ID may not have access to Precise ID XML Gateway product or it may be locked due to too 

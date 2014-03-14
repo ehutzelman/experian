@@ -34,7 +34,14 @@ describe Experian::Client do
     end
   end
 
-  it "provides details if we receive a 400"
+  it "provides details if we receive a 400" do
+    stub_experian_request('connect_check','request.xml', 400)
+    begin
+      @client.submit_request
+    rescue Experian::ArgumentError => e
+      assert_equal "Input parameter is missing or invalid", e.message
+    end
+  end
 
   it "raises an UnauthorizedError if we receive a 403" do
     stub_experian_request('connect_check','request.xml', 403)
