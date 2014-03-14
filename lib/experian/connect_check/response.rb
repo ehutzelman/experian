@@ -6,10 +6,6 @@ module Experian
         super && !header_segment.nil?
       end
 
-      def error?
-        super || !error_segment.nil?
-      end
-
       def input_type
         return unless connect_check_segment
         connect_check_segment[7]
@@ -84,20 +80,6 @@ module Experian
         connect_check_segment[25 + customer_name_length + 2, customer_message_length]
       end
 
-      def error_code
-        return unless error_segment
-        error_message_segment[6..8].to_i
-      end
-
-      def error_message
-        super || (Experian::Error.message(error_code) if error_code)
-      end
-
-      def error_action_indicator
-        return unless error_segment
-        error_message_segment[9]
-      end
-
       def segments(segment_id = nil)
         @segments ||= host_response ? host_response.split("@") : []
 
@@ -112,22 +94,28 @@ module Experian
         segments(segment_id).first
       end
 
+      def error?
+        super || !error_segment.nil?
+      end
+
+      def error_code
+        return unless error_segment
+        error_message_segment[6..8].to_i
+      end
+
+      def error_message
+        super || (Experian::Error.message(error_code) if error_code)
+      end
+
+      def error_action_indicator
+        return unless error_segment
+        error_message_segment[9]
+      end
+
       private
 
       def header_segment
         segment(110)
-      end
-
-      # error_segment returns the entire host response (segments 100, 200, 900)
-      # since error responses do not separate segments with "@".
-      def error_segment
-        segment(100)
-      end
-
-      # The error message segment is embedded in the error segment :(
-      def error_message_segment
-        return unless error_segment
-        error_segment[error_segment.index("200")..-1]
       end
 
       def consumer_statement_segment
@@ -140,6 +128,18 @@ module Experian
 
       def risk_score_segment
         segment(125)
+      end
+
+      # error_segment returns the entire host response (segments 100, 200, 900)
+      # since error responses do not separate segments with "@".
+      def error_segment
+        segment(100)
+      end
+
+      # The error message segment is embedded in the error segment :(
+      def error_message_segment
+        return unless error_segment
+        error_segment[error_segment.index("200")..-1]
       end
 
     end

@@ -28,10 +28,10 @@ module Experian
         # The user ID may not have access to Precise ID XML Gateway product or it may be locked due to too 
         # many password violations.
         raise Experian::Forbidden, "Access forbidden, please contact experian"
-      when 404
-        raise Experian::ServerError, "Experian not found"
-      when 500
-        raise Experian::ServerError, "Experian server error"
+      when 400..499
+        raise Experian::ClientError, "Response Code: #{@raw_response.status}"
+      when 500..599
+        raise Experian::ServerError, "Response Code: #{@raw_response.status}"
       else
         raise Experian::Forbidden, "Invalid Experian login credentials" if !!(@raw_response.headers["Location"] =~ /sso_logon/)
       end

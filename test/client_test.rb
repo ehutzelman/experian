@@ -45,7 +45,14 @@ describe Experian::Client do
 
   it "raises a ServerError if we receive a 404" do
     stub_experian_request('connect_check','request.xml', 404)
-    assert_raises(Experian::ServerError) do
+    assert_raises(Experian::ClientError) do
+      @client.submit_request
+    end    
+  end
+
+  it "raises a general ClientError if we receive any kind of 4**" do
+    stub_experian_request('connect_check','request.xml', 429)
+    assert_raises(Experian::ClientError) do
       @client.submit_request
     end    
   end
@@ -54,7 +61,14 @@ describe Experian::Client do
     stub_experian_request('connect_check','request.xml', 500)
     assert_raises(Experian::ServerError) do
       @client.submit_request
-    end    
+    end
+  end
+
+  it "should rase a general Server Error if we receive any other kind of 500" do
+    stub_experian_request('connect_check','request.xml', 503)
+    assert_raises(Experian::ServerError) do
+      @client.submit_request
+    end
   end
 
 end

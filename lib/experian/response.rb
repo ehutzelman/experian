@@ -10,14 +10,6 @@ module Experian
         @response = parse_xml_response
       end
 
-      def error_message
-        @response["ErrorMessage"]
-      end
-
-      def error_tag
-        @response["ErrorTag"]
-      end
-
       def host_response
         @response["HostResponse"]
       end
@@ -40,6 +32,14 @@ module Experian
 
       def error?
         completion_code != "0000"
+      end
+
+      def error_message
+        @response["ErrorMessage"]
+      end
+
+      def error_tag
+        @response["ErrorTag"]
       end
 
       def error_action_indicator_message
