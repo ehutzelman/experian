@@ -9,7 +9,10 @@ module Experian
         xml.tag!('Verbose', "Y") if @options[:verbose]
         add_vendor(xml)
         add_options(xml)
+        xml.tag!('IPAddress', @options[:ip_address]) if @options[:ip_address]
       end
+
+      private
 
       def add_subscriber(xml)
         xml.tag!('Subscriber') do
@@ -26,6 +29,9 @@ module Experian
             xml.tag!('First', @options[:first_name])
           end
           add_current_address(xml)
+          add_phone_numebr(xml)
+          xml.tag!('DOB', @options[:dob]) if @options[:dob]
+          xml.tag!('EmailAddress', @options[:email]) if @options[:email]
         end
       end
 
@@ -36,6 +42,12 @@ module Experian
           xml.tag!('State', @options[:state])
           xml.tag!('Zip', @options[:zip])
         end if @options[:zip]
+      end
+
+      def add_phone_numebr(xml)
+        xml.tag!('Phone') do
+          xml.tag!('Number', @options[:phone])
+        end if @options[:phone]
       end
 
       def add_vendor(xml)
