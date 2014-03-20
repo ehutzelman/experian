@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<NetConnectRequest xmlns="http://www.experian.com/NetConnect" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.experian.com/NetConnect NetConnect.xsd">
+  <EAI>X42PB93F</EAI>
+  <DBHost>PRECISE_ID_TEST</DBHost>
+  <Request version="1.0" xmlns="http://www.experian.com/WebDelivery">
+    <Products>
+      <PreciseIDServer>
+        <XMLVersion>5.0</XMLVersion>
+        <Subscriber>
+          <Preamble>FCD2</Preamble>
+          <OpInitials>AB</OpInitials>
+          <SubCode>1968543</SubCode>
+        </Subscriber>
+        <PrimaryApplicant>
+          <Name>
+            <Surname>Simpson</Surname>
+            <First>Homer</First>
+          </Name>
+          <CurrentAddress>
+            <Street>742 Evergreen Terrace</Street>
+            <City>Springfield</City>
+            <State>IL</State>
+            <Zip>60611</Zip>
+          </CurrentAddress>
+        </PrimaryApplicant>
+        <Vendor>
+          <VendorNumber>P55</VendorNumber>
+        </Vendor>
+        <Options>
+          <PreciseIDType>21</PreciseIDType>
+        </Options>
+      </PreciseIDServer>
+    </Products>
+  </Request>
+</NetConnectRequest>

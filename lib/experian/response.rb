@@ -10,10 +10,6 @@ module Experian
         @response = parse_xml_response
       end
 
-      def error_message
-        @response["ErrorMessage"] || (Experian::Error.message(error_code) if error_code)
-      end
-
       def host_response
         @response["HostResponse"]
       end
@@ -30,52 +26,20 @@ module Experian
         @response["TransactionId"]
       end
 
-      def segments(segment_id = nil)
-        @segments ||= host_response ? host_response.split("@") : []
-
-        if segment_id
-          @segments.select { |segment| segment.length >= 3 ? segment[0..2].to_i == segment_id : false }
-        else
-          @segments
-        end
-      end
-
-      def segment(segment_id)
-        segments(segment_id).first
-      end
-
-      def header_segment
-        segment(110)
-      end
-
-      # error_segment returns the entire host response (segments 100, 200, 900)
-      # since error responses do not separate segments with "@".
-      def error_segment
-        segment(100)
-      end
-
       def success?
-        completion_code == "0000" && !header_segment.nil?
+        completion_code == "0000"
       end
 
       def error?
-        completion_code != "0000" || !error_segment.nil?
+        completion_code != "0000"
       end
 
-      # The error message segment is embedded in the error segment :(
-      def error_message_segment
-        return unless error_segment
-        error_segment[error_segment.index("200")..-1]
+      def error_message
+        @response["ErrorMessage"]
       end
 
-      def error_code
-        return unless error_segment
-        error_message_segment[6..8].to_i
-      end
-
-      def error_action_indicator
-        return unless error_segment
-        error_message_segment[9]
+      def error_tag
+        @response["ErrorTag"]
       end
 
       def error_action_indicator_message

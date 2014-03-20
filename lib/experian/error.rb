@@ -18,5 +18,6 @@ module Experian
   class ArgumentError < ClientError; end
   class Forbidden < ClientError; end
   class ServerError < Error; end
+  class AuthenticationError < Error; end
 
 end
