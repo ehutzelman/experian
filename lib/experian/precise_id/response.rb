@@ -10,11 +10,11 @@ module Experian
       end
 
       def error_code
-        error_section["ErrorCode"]
+        has_error_section? ? error_section["ErrorCode"] : nil
       end
 
       def error_message
-        super || error_section["ErrorDescription"]
+        super || (has_error_section? ? error_section["ErrorDescription"] : nil)
       end
 
       def session_id
@@ -47,19 +47,30 @@ module Experian
       private
 
       def initial_results_section
+        return nil unless has_summary_section?
         summary_section["InitialResults"]
       end
 
+      def has_summary_section?
+        !!summary_section
+      end
+
       def summary_section
+        return nil unless has_precise_id_section?
         precise_id_server_section["Summary"]
       end
 
       def has_precise_id_section?
-        !!products_section["PreciseIDServer"]
+        !!precise_id_server_section
       end
 
       def precise_id_server_section
+        return nil unless has_products_section?
         products_section["PreciseIDServer"]
+      end
+
+      def has_products_section?
+        !!products_section
       end
 
       def products_section
@@ -67,6 +78,7 @@ module Experian
       end
 
       def kba_section
+        return nil unless has_precise_id_section?
         precise_id_server_section["KBA"]
       end
 
@@ -75,6 +87,7 @@ module Experian
       end
 
       def error_section
+        return nil unless has_precise_id_section?
         precise_id_server_section["Error"]
       end
     end
