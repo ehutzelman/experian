@@ -7,7 +7,7 @@ describe Experian::PreciseId::Response do
     describe :all_responses do
       before do
         stub_experian_request("precise_id", "primary-response.xml")
-        @response = Experian::PreciseId.check_id(first_name: "Homer", last_name: "Simpson", ssn: "123456789")
+        @request, @response = Experian::PreciseId.check_id(first_name: "Homer", last_name: "Simpson", ssn: "123456789")
       end
 
       it "receives a successful response" do
@@ -31,7 +31,7 @@ describe Experian::PreciseId::Response do
     describe :kba_response do
       before do
         stub_experian_request("precise_id", "secondary-response.xml")
-        @response = Experian::PreciseId.request_questions(session_id: 'abc')
+        @request,@response = Experian::PreciseId.request_questions(session_id: 'abc')
       end
 
       it "extracts the question set" do
@@ -60,7 +60,7 @@ describe Experian::PreciseId::Response do
     describe :final_response do
       before do
         stub_experian_request("precise_id", "final-response.xml")
-        @response = Experian::PreciseId.send_answers(session_id: 'abc', answers: [1,2])
+        @request, @response = Experian::PreciseId.send_answers(session_id: 'abc', answers: [1,2])
       end
 
       it "fetches the refer_code" do
@@ -71,7 +71,7 @@ describe Experian::PreciseId::Response do
     describe "malformed response" do
       before do
         stub_experian_request("precise_id", "malformed-response.xml")
-        @response = Experian::PreciseId.check_id
+        @request, @response = Experian::PreciseId.check_id
       end
 
       it "reports an error" do
@@ -83,7 +83,7 @@ describe Experian::PreciseId::Response do
     describe "precise_id error" do
       before do
         stub_experian_request("precise_id", "error-response.xml")
-        @response = Experian::PreciseId.check_id
+        @request, @response = Experian::PreciseId.check_id
       end
 
       it "reports an error" do

@@ -5,15 +5,15 @@ module Experian
       SUCCESS_RESPONSE = "SUCCESS"
 
       def request_password
-        @request = Request.new(command: 'requestnewpassword')
-        submit_request # populates @raw_response, body returns ""
-        @raw_response.headers["Response"]
+        request = Request.new(command: 'requestnewpassword')
+        response = submit_request(request)
+        response.headers["Response"]
       end
 
       def reset_password(new_password)
-        @request = Request.new(new_password: new_password, command: 'resetpassword')
-        submit_request
-        @raw_response.headers["Response"] == SUCCESS_RESPONSE
+        request = Request.new(new_password: new_password, command: 'resetpassword')
+        response = submit_request(request)
+        response.headers["Response"] == SUCCESS_RESPONSE
       end
 
       def request_uri

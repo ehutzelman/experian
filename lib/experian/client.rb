@@ -1,19 +1,19 @@
 module Experian
   class Client
 
-    attr_reader :request, :response
-
-    def submit_request
-      @raw_response = post_request
-      validate_response(@raw_response)
-      @raw_response.body
+    def submit_request(request)
+      response = post_request(request)
+      validate_response(response)
 
     rescue Excon::Errors::SocketError => e
       raise Experian::ClientError, "Could not connect to Experian: #{e.message}"
+    rescue Experian::Error => e
+      Experian.logger.debug "Experian Error Detected, Raw response: #{response}" if Experian.logger
+      raise e
     end
 
-    def validate_response(raw_response)
-      case raw_response.status
+    def validate_response(response)
+      case response.status
       when 302
         # from docs:
         # Any of the following: Unauthorized user (this can occur due to an incorrect User ID and/or Password);
@@ -29,17 +29,21 @@ module Experian
         # many password violations.
         raise Experian::Forbidden, "Access forbidden, please contact experian"
       when 400..499
-        raise Experian::ClientError, "Response Code: #{raw_response.status}"
+        raise Experian::ClientError, "Response Code: #{response.status}"
       when 500..599
-        raise Experian::ServerError, "Response Code: #{raw_response.status}"
+        raise Experian::ServerError, "Response Code: #{response.status}"
       else
-        raise Experian::Forbidden, "Invalid Experian login credentials" if !!(raw_response.headers["Location"] =~ /sso_logon/)
+        if !!(response.headers["Location"] =~ /sso_logon/)
+          raise Experian::Forbidden, "Invalid Experian login credentials" 
+        else
+          response
+        end
       end
     end
 
     private
 
-    def post_request
+    def post_request(request)
       connection = Excon.new(request_uri.to_s, excon_options)
       connection.post(body: request.body, headers: request.headers)
     end
