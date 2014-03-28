@@ -21,6 +21,7 @@ end
 def stub_experian_request(product, file, status = 200)
   stub_experian_uri_lookup
   stub_request(:post, "http://user:password@fake.experian.com").to_return(body: fixture(product, file), status: status)
+  stub_request(:post, "https://user:password@dm2.experian.com/fraudsolutions/xmlgateway/preciseid").to_return(body: fixture(product, file), status: status)
 end
 
 def stub_password_reset(status = 200)
