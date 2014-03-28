@@ -14,72 +14,48 @@ module Experian
       end
 
       def error_message
-        super || (has_error_section? ? error_section["ErrorDescription"] : nil)
+        super || has_error_section? ? error_section["ErrorDescription"] : nil
       end
 
       def session_id
-        precise_id_server_section["SessionID"]
+        hash_path(@response,"Products","PreciseIDServer","SessionID")
       end
 
       def initial_decision
-        initial_results_section["InitialDecision"]
+        hash_path(@response,"Products","PreciseIDServer","Summary","InitialResults","InitialDecision")
       end
 
       def final_decision
-        initial_results_section["FinalDecision"]
+        hash_path(@response,"Products","PreciseIDServer","Summary","InitialResults","FinalDecision")
       end
 
       def accept_refer_code
-        precise_id_server_section["KBAScore"]["ScoreSummary"]["AcceptReferCode"]
+        hash_path(@response,"Products","PreciseIDServer","KBAScore","ScoreSummary","AcceptReferCode")
       end
 
       def questions
-        return [] unless kba_section
-        kba_section["QuestionSet"].collect do |question|
-          {
-            :type => question["QuestionType"].to_i,
-            :text => question["QuestionText"],
-            :choices => question["QuestionSelect"]["QuestionChoice"]
-          }
+        questions = hash_path(@response,"Products","PreciseIDServer","KBA","QuestionSet")
+        if questions
+          questions.collect do |question|
+            {
+              :type => question["QuestionType"].to_i,
+              :text => question["QuestionText"],
+              :choices => question["QuestionSelect"]["QuestionChoice"]
+            }
+          end
+        else
+          []
         end
       end
 
       private
-
-      def initial_results_section
-        return nil unless has_summary_section?
-        summary_section["InitialResults"]
-      end
-
-      def has_summary_section?
-        !!summary_section
-      end
-
-      def summary_section
-        return nil unless has_precise_id_section?
-        precise_id_server_section["Summary"]
-      end
 
       def has_precise_id_section?
         !!precise_id_server_section
       end
 
       def precise_id_server_section
-        return nil unless has_products_section?
-        products_section["PreciseIDServer"]
-      end
-
-      def has_products_section?
-        !!products_section
-      end
-
-      def products_section
-        @response["Products"]
-      end
-
-      def kba_section
-        return nil unless has_precise_id_section?
-        precise_id_server_section["KBA"]
+        hash_path(@response,"Products","PreciseIDServer")
       end
 
       def has_error_section?
@@ -87,8 +63,20 @@ module Experian
       end
 
       def error_section
-        return nil unless has_precise_id_section?
-        precise_id_server_section["Error"]
+        hash_path(@response,"Products","PreciseIDServer","Error")
+      end
+
+      def hash_path(hash, *path)
+        field = path[0]
+        if path.length == 1
+          hash[field]
+        else
+          if hash[field]
+            hash_path(hash[field], *path[1..-1])
+          else
+            nil
+          end
+        end
       end
     end
   end
