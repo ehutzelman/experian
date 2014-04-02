@@ -49,7 +49,9 @@ module Experian
     end
 
     def excon_options
-      {idempotent: true}
+      {idempotent: true}.tap do |options|
+        options[:proxy] = Experian.proxy if Experian.proxy
+      end
     end
 
     def request_uri
