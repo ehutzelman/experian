@@ -8,12 +8,27 @@ describe Experian::Client do
     @logger = Experian.logger = stub(debug: nil)
     @client = Experian::Client.new
     @request = stub(body: "NETCONNECT_TRANSACTION=fake+xml+content", headers: {})
+    @response = stub(status: 200,headers:{},body:"")
+    @excon = stub(post:@response)
   end
 
   it "submits the request and return the raw response" do
     response = stub(body: "fake body content", headers: {},status:200)
     @client.stubs(:post_request).returns(response)
     assert_equal response, @client.submit_request(@request)
+  end
+
+  it "includes the proxy in the excon arguments" do
+    proxy = "http://proxy.example.com/"
+    Experian.stubs(:proxy).returns(proxy)
+    Excon.expects(:new => @excon).with('http://user:password@fake.experian.com',{idempotent:true,proxy:proxy})
+    @client.submit_request(@request)
+  end
+
+  it "doesn't include the proxy if it's not provided" do
+    Experian.stubs(:proxy).returns(nil)
+    Excon.expects(:new => @excon).with('http://user:password@fake.experian.com',{idempotent:true})
+    @client.submit_request(@request)
   end
 
   it "raises a forbidden exception if logon location header returned" do

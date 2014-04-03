@@ -24,10 +24,6 @@ module Experian
         end
       end
 
-      def excon_options
-        Experian.proxy ? super.merge(proxy: Experian.proxy) : super
-      end
-
     end
   end
 end
