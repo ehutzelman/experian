@@ -41,7 +41,7 @@ describe Experian::Client do
   it "logs the raw response if an error is thrown" do
     response = stub(headers: { "Location" => "sso_logon" },status: 200)
     @client.stubs(:post_request).returns(response)
-    @logger.expects(:debug).with("Experian Error Detected, Raw response: #{response}")
+    @logger.expects(:debug).with("Experian Error Detected, Raw response: #{response.inspect}")
     assert_raises(Experian::Forbidden) do
       @client.submit_request(@request)
     end    
