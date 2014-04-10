@@ -25,7 +25,7 @@ module Experian
 
       def check_response(response,raw_response)
         if Experian.logger && response.error? && (response.error_code.nil? && response.error_message.nil?)
-          Experian.logger.debug "Unknown Experian Error Detected, Raw response: #{raw_response}"
+          Experian.logger.debug "Unknown Experian Error Detected, Raw response: #{raw_response.inspect}"
         end
       end
 

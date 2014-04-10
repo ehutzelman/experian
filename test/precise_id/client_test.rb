@@ -20,7 +20,7 @@ describe Experian::PreciseId::Client do
       headers:{}
     })
     @client.stubs(:post_request).returns(response)
-    @logger.expects(:debug).with("Unknown Experian Error Detected, Raw response: #{response}")
+    @logger.expects(:debug).with("Unknown Experian Error Detected, Raw response: #{response.inspect}")
     @client.check_id
   end
 
