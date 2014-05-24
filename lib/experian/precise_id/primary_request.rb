@@ -3,7 +3,7 @@ module Experian
     class PrimaryRequest < Request
       
       def add_request_content(xml)
-        xml.tag!('XMLVersion', "05")
+        xml.tag!('XMLVersion', "5.0")
         add_subscriber(xml)
         add_applicant(xml)
         xml.tag!('Verbose', "Y") if @options[:verbose]
