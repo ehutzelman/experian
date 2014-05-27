@@ -1,7 +1,7 @@
 <?xml version="1.0" standalone="no"?>
-  <NetConnectResponse xmlns="http://www.experian.com/NetConnectResponse">
-    <CompletionCode>1000</CompletionCode>
-    <TransactionId>8276385</TransactionId>
-    <ErrorMessage>Invalid request format</ErrorMessage>
-    <ErrorTag>NetConnectRequest/Request/Products/ConnectCheck/PrimaryApplicant/ConnectCheck_PrimaryApplicantTypeChoice/null</ErrorTag>
-  </NetConnectResponse>
+<NetConnectResponse>
+  <CompletionCode>1000</CompletionCode>
+  <TransactionId>8276385</TransactionId>
+  <ErrorMessage>Invalid request format</ErrorMessage>
+  <ErrorTag>NetConnectRequest/Request/Products/ConnectCheck/PrimaryApplicant/ConnectCheck_PrimaryApplicantTypeChoice/null</ErrorTag>
+</NetConnectResponse>

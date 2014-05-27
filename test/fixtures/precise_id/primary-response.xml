@@ -1,4 +1,4 @@
-<NetConnectResponse xmlns="http://www.experian.com/NetConnectResponse">
+<NetConnectResponse>
   <CompletionCode>0000</CompletionCode>
   <ReferenceId>XML PROD OP 19</ReferenceId>
   <Products>

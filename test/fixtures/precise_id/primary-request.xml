@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<NetConnectRequest xmlns="http://www.experian.com/NetConnect" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.experian.com/NetConnect NetConnect.xsd">
+<NetConnectRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.experian.com/NetConnect NetConnect.xsd">
   <EAI>X42PB93F</EAI>
   <DBHost>PRECISE_ID_TEST</DBHost>
   <Request>
