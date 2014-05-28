@@ -2,6 +2,10 @@ require 'test_helper'
 
 describe Experian::PreciseId::Response do
 
+  def subject(xml_string)
+    Experian::PreciseId::Response.new(xml_string)
+  end
+
   describe "successful response" do
 
     describe :all_responses do
@@ -76,27 +80,80 @@ describe Experian::PreciseId::Response do
 
       it "reports an error" do
         refute @response.success?
-        assert @response.error?        
+        assert @response.error?
       end
     end
 
     describe "precise_id error" do
-      before do
-        stub_experian_request("precise_id", "error-response.xml")
+
+      def xml_string
+        fixture("precise_id", "error-response.xml")
+      end
+
+      it 'success? is false' do
+        assert_equal subject(xml_string).success?, false
+      end
+
+      it 'error? is true' do
+        assert_equal subject(xml_string).error?, true
+      end
+
+      it 'error message' do
+        assert_equal subject(xml_string).error_message, "Consumer is a minor"
+      end
+
+      describe "integration tests" do
+
+        before do
+          stub_experian_request("precise_id", "error-response.xml")
+          @request, @response = Experian::PreciseId.check_id
+        end
+
+        it "reports an error" do
+          refute @response.success?
+          assert @response.error?
+        end
+
+        it "returns the error code" do
+          assert_equal "010", @response.error_code
+        end
+
+        it "returns the error description" do
+          assert_equal "Consumer is a minor", @response.error_message
+        end
+      end
+    end
+
+    describe "4000 level error" do
+
+      def xml_string
+        fixture("precise_id", "4000-completion-code-response.xml")
+      end
+
+      it 'success? is false' do
+        assert_equal subject(xml_string).success?, false
+      end
+
+      it 'error? is true' do
+        assert_equal subject(xml_string).error?, true
+      end
+
+      it 'error message' do
+        assert_equal subject(xml_string).error_message, "System error. Call Experian Technical Support at 1-800-854-7201"
+      end
+
+      it 'error_code is nil' do
+        assert_equal subject(xml_string).error_code, nil
+      end
+
+      it 'completion code is 4000' do
+        assert_equal subject(xml_string).completion_code, "4000"
+      end
+
+
+      it 'calls check id with out raising any exceptions' do
+        stub_experian_request("precise_id", "4000-completion-code-response.xml")
         @request, @response = Experian::PreciseId.check_id
-      end
-
-      it "reports an error" do
-        refute @response.success?
-        assert @response.error?
-      end
-
-      it "returns the error code" do
-        assert_equal "010", @response.error_code
-      end
-
-      it "returns the error description" do
-        assert_equal "Consumer is a minor", @response.error_message
       end
     end
   end
