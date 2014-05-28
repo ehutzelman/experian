@@ -14,7 +14,13 @@ module Experian
       end
 
       def error_message
-        super || has_error_section? ? error_section["ErrorDescription"] : nil
+        if has_error_section?
+          error_message = error_section["ErrorDescription"]
+        else
+          error_message = nil
+        end
+
+        super || error_message
       end
 
       def session_id
@@ -48,6 +54,14 @@ module Experian
         end
       end
 
+      def has_error_section?
+        !!error_section
+      end
+
+      def error_section
+        hash_path(@response,"Products","PreciseIDServer","Error")
+      end
+
       private
 
       def has_precise_id_section?
@@ -56,14 +70,6 @@ module Experian
 
       def precise_id_server_section
         hash_path(@response,"Products","PreciseIDServer")
-      end
-
-      def has_error_section?
-        !!error_section
-      end
-
-      def error_section
-        hash_path(@response,"Products","PreciseIDServer","Error")
       end
 
       def hash_path(hash, *path)
