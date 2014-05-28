@@ -7,6 +7,8 @@ require "experian/client"
 require "experian/request"
 require "experian/response"
 require "experian/connect_check"
+require "experian/precise_id"
+require "experian/password_reset"
 
 module Experian
   include Experian::Constants
@@ -14,7 +16,7 @@ module Experian
   class << self
 
     attr_accessor :eai, :preamble, :op_initials, :subcode, :user, :password, :vendor_number
-    attr_accessor :test_mode
+    attr_accessor :test_mode, :proxy, :logger
 
     def configure
       yield self
@@ -38,12 +40,19 @@ module Experian
 
     def net_connect_uri
       perform_ecals_lookup if ecals_lookup_required?
+      add_credentials(@net_connect_uri)
+    end
 
-      # setup basic authentication
-      @net_connect_uri.user = Experian.user
-      @net_connect_uri.password = Experian.password
+    def precice_id_uri
+      uri = URI.parse(test_mode? ? Experian::PRECISE_ID_TEST_URL : Experian::PRECISE_ID_URL)
+      add_credentials(uri)
+    end
 
-      @net_connect_uri
+    def add_credentials(uri)
+      uri.tap do |u|
+        u.user = Experian.user
+        u.password = Experian.password
+      end
     end
 
     def perform_ecals_lookup

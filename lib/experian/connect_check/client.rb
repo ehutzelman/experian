@@ -4,8 +4,7 @@ module Experian
 
       def check_credit(options = {})
         assert_check_credit_options(options)
-        @request = Request.new(options)
-        @response = Response.new(submit_request)
+        Response.new(submit_request(Request.new(options)).body)
       end
 
       def assert_check_credit_options(options)

@@ -18,9 +18,15 @@ def stub_experian_uri_lookup
   stub_request(:get, Experian.ecals_uri.to_s).to_return(body: "http://fake.experian.com", status: 200)
 end
 
-def stub_experian_request(product, file)
+def stub_experian_request(product, file, status = 200)
   stub_experian_uri_lookup
-  stub_request(:post, "http://user:password@fake.experian.com").to_return(body: fixture(product, file), status: 200)
+  stub_request(:post, "http://user:password@fake.experian.com").to_return(body: fixture(product, file), status: status)
+  stub_request(:post, "https://user:password@dm2.experian.com/fraudsolutions/xmlgateway/preciseid").to_return(body: fixture(product, file), status: status)
+end
+
+def stub_password_reset(status = 200)
+  stub_request(:post, "https://user:password@ss3.experian.com/securecontrol/reset/passwordreset").
+    to_return(:status => status, :body => "", :headers => {})
 end
 
 Experian.configure do |config|
@@ -32,4 +38,5 @@ Experian.configure do |config|
   config.password = "password"
   config.vendor_number = "P55"
   config.test_mode = true
+  config.proxy = 'http://example.com'
 end
