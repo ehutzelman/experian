@@ -72,7 +72,6 @@ module Experian
         hash_path(@response,"Products","PreciseIDServer","Error")
       end
 
-
       def hash_path(hash, *path)
         field = path[0]
         if path.length == 1
