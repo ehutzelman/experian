@@ -14,7 +14,13 @@ module Experian
       end
 
       def error_message
-        super || has_error_section? ? error_section["ErrorDescription"] : nil
+        if has_error_section?
+          error_message = error_section["ErrorDescription"]
+        else
+          error_message = nil
+        end
+
+        super || error_message
       end
 
       def session_id
