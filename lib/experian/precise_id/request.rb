@@ -6,7 +6,7 @@ module Experian
           xml.tag!('EAI', Experian.eai)
           xml.tag!('DBHost', PreciseId.db_host)
           add_reference_id(xml)
-          xml.tag!('Request', :version => '1.0', :xmlns => Experian::XML_REQUEST_NAMESPACE) do
+          xml.tag!('Request') do
             xml.tag!('Products') do
               xml.tag!('PreciseIDServer') do
                 add_request_content(xml)
