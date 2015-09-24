@@ -13,14 +13,11 @@ describe Experian::PreciseId::Client do
     assert_kind_of Experian::PreciseId::Response, response
   end
 
-  it "logs the raw response if an unidentified error is detected" do
-    response = stub({
-      status:200,
-      body:"<NetConnectResponse><CompletionCode>0000</CompletionCode><ReferenceId/></NetConnectResponse>",
-      headers:{}
-    })
+  it "logs the response body" do
+    body = "<NetConnectResponse><CompletionCode>0000</CompletionCode><ReferenceId/></NetConnectResponse>"
+    response = stub({ status:200, body: body, headers:{} })
     @client.stubs(:post_request).returns(response)
-    @logger.expects(:debug).with("Unknown Experian Error Detected, Raw response: #{response.inspect}")
+    @logger.expects(:debug).with("Status: 200, Headers: {}, Body: #{body}")
     @client.check_id
   end
 
@@ -35,5 +32,4 @@ describe Experian::PreciseId::Client do
     assert_kind_of Experian::PreciseId::FinalRequest, request
     assert_kind_of Experian::PreciseId::Response, response
   end
-
 end
