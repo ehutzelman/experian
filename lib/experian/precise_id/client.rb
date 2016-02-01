@@ -25,9 +25,9 @@ module Experian
 
       def log_raw_response(raw_response)
         if Experian.logger && raw_response
-          Experian.logger.debug "Status: #{raw_response.status}, Headers: #{raw_response.headers}, Body: #{raw_response.body}"
+          Experian.logger.info "Status: #{raw_response.status}, Headers: #{raw_response.headers}, Body: #{raw_response.body}"
         elsif Experian.logger
-          Experian.logger.debug "Response was nil"
+          Experian.logger.error "Response was nil"
         end
       end
 

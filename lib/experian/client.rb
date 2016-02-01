@@ -8,7 +8,7 @@ module Experian
     rescue Excon::Errors::SocketError => e
       raise Experian::ClientError, "Could not connect to Experian: #{e.message}"
     rescue Experian::Error => e
-      Experian.logger.debug "Experian Error Detected, Raw response: #{response.inspect}" if Experian.logger
+      Experian.logger.error "Experian Error Detected, Raw response: #{response.inspect}" if Experian.logger
       raise e
     end
 

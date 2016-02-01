@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe Experian::PreciseId::Client do
   before do
-    @logger = Experian.logger = stub(debug: nil)
+    @logger = Experian.logger = stub(info: nil)
     @client = Experian::PreciseId::Client.new
     stub_experian_request("precise_id", "primary-response.xml")
   end
@@ -17,7 +17,7 @@ describe Experian::PreciseId::Client do
     body = "<NetConnectResponse><CompletionCode>0000</CompletionCode><ReferenceId/></NetConnectResponse>"
     response = stub({ status:200, body: body, headers:{} })
     @client.stubs(:post_request).returns(response)
-    @logger.expects(:debug).with("Status: 200, Headers: {}, Body: #{body}")
+    @logger.expects(:info).with("Status: 200, Headers: {}, Body: #{body}")
     @client.check_id
   end
 

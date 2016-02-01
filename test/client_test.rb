@@ -5,7 +5,7 @@ describe Experian::Client do
   before do
     stub_experian_uri_lookup
 
-    @logger = Experian.logger = stub(debug: nil)
+    @logger = Experian.logger = stub(error: nil)
     @client = Experian::Client.new
     @request = stub(body: "NETCONNECT_TRANSACTION=fake+xml+content", headers: {})
     @response = stub(status: 200,headers:{},body:"")
@@ -41,10 +41,10 @@ describe Experian::Client do
   it "logs the raw response if an error is thrown" do
     response = stub(headers: { "Location" => "sso_logon" },status: 200)
     @client.stubs(:post_request).returns(response)
-    @logger.expects(:debug).with("Experian Error Detected, Raw response: #{response.inspect}")
+    @logger.expects(:error).with("Experian Error Detected, Raw response: #{response.inspect}")
     assert_raises(Experian::Forbidden) do
       @client.submit_request(@request)
-    end    
+    end
   end
 
   it "raises an AuthenticationError if we receive a 302" do
@@ -81,14 +81,14 @@ describe Experian::Client do
     stub_experian_request('connect_check','request.xml', 404)
     assert_raises(Experian::ClientError) do
       @client.submit_request(@request)
-    end    
+    end
   end
 
   it "raises a general ClientError if we receive any kind of 4**" do
     stub_experian_request('connect_check','request.xml', 429)
     assert_raises(Experian::ClientError) do
       @client.submit_request(@request)
-    end    
+    end
   end
 
   it "raises a ServerError if we receive a 500" do
