@@ -25,7 +25,7 @@ module Experian
         raise Experian::ArgumentError, "Input parameter is missing or invalid"
       when 403
         # Transaction was authenticated but not authorized.
-        # The user ID may not have access to Precise ID XML Gateway product or it may be locked due to too 
+        # The user ID may not have access to Precise ID XML Gateway product or it may be locked due to too
         # many password violations.
         raise Experian::Forbidden, "Access forbidden, please contact experian"
       when 400..499
@@ -34,7 +34,7 @@ module Experian
         raise Experian::ServerError, "Response Code: #{response.status}"
       else
         if !!(response.headers["Location"] =~ /sso_logon/)
-          raise Experian::Forbidden, "Invalid Experian login credentials" 
+          raise Experian::Forbidden, "Invalid Experian login credentials"
         else
           response
         end
