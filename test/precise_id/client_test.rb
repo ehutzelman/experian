@@ -2,7 +2,7 @@ require 'test_helper'
 
 describe Experian::PreciseId::Client do
   before do
-    @logger = Experian.logger = stub(info: nil)
+    @logger = Experian.logger = stub(info: nil, error: nil)
     @client = Experian::PreciseId::Client.new
     stub_experian_request("precise_id", "primary-response.xml")
   end
@@ -13,11 +13,20 @@ describe Experian::PreciseId::Client do
     assert_kind_of Experian::PreciseId::Response, response
   end
 
-  it "logs the response body" do
-    body = "<NetConnectResponse><CompletionCode>0000</CompletionCode><ReferenceId/></NetConnectResponse>"
-    response = stub({ status:200, body: body, headers:{} })
+  it "logs errors" do
+    @client.stubs(:post_request).raises "An error"
+    @logger.expects(:error)
+    @client.check_id
+  end
+
+  it "logs the raw response if an unidentified error is detected" do
+    response = stub({
+      status:200,
+      body:"<NetConnectResponse><CompletionCode>0000</CompletionCode><ReferenceId/></NetConnectResponse>",
+      headers:{}
+    })
     @client.stubs(:post_request).returns(response)
-    @logger.expects(:info).with("Status: 200, Headers: {}, Body: #{body}")
+    @logger.expects(:error).with("Experian response contains an unknown error, please inspect the raw response for details")
     @client.check_id
   end
 
