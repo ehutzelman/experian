@@ -16,7 +16,7 @@ describe Experian::PreciseId::Client do
   it "logs errors" do
     @client.stubs(:post_request).raises "An error"
     @logger.expects(:error)
-    @client.check_id
+    -> { @client.check_id }.must_raise RuntimeError
   end
 
   it "performs a secondary inquiry" do

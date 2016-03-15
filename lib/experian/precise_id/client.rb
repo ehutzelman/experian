@@ -23,6 +23,7 @@ module Experian
       rescue => e
         log_error(e)
         log_raw_response(raw_response)
+        raise e
       end
 
       def log_error(e)
