@@ -19,17 +19,6 @@ describe Experian::PreciseId::Client do
     @client.check_id
   end
 
-  it "logs the raw response if an unidentified error is detected" do
-    response = stub({
-      status:200,
-      body:"<NetConnectResponse><CompletionCode>0000</CompletionCode><ReferenceId/></NetConnectResponse>",
-      headers:{}
-    })
-    @client.stubs(:post_request).returns(response)
-    @logger.expects(:error).with("Experian response contains an unknown error, please inspect the raw response for details")
-    @client.check_id
-  end
-
   it "performs a secondary inquiry" do
     request,response = @client.request_questions
     assert_kind_of Experian::PreciseId::SecondaryRequest, request

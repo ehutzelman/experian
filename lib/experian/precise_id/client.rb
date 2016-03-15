@@ -19,18 +19,10 @@ module Experian
       def submit_request(request)
         raw_response = super
         response = Response.new(raw_response.body)
-        check_response_for_errors(response, raw_response)
         [request,response]
       rescue => e
         log_error(e)
         log_raw_response(raw_response)
-      end
-
-      def check_response_for_errors(response, raw_response)
-        if Experian.logger && response.error? && (response.error_code.nil? && response.error_message.nil?)
-          Experian.logger.error "Experian response contains an unknown error, please inspect the raw response for details"
-          log_raw_response(raw_response)
-        end
       end
 
       def log_error(e)
