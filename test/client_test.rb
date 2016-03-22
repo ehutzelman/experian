@@ -5,7 +5,7 @@ describe Experian::Client do
   before do
     stub_experian_uri_lookup
 
-    @logger = Experian.logger = stub(error: nil)
+    @logger = Experian.logger = stub(info: nil, error: nil)
     @client = Experian::Client.new
     @request = stub(body: "NETCONNECT_TRANSACTION=fake+xml+content", headers: {})
     @response = stub(status: 200,headers:{},body:"")
