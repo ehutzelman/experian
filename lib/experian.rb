@@ -15,8 +15,7 @@ module Experian
 
   class << self
 
-    attr_accessor :eai, :preamble, :op_initials, :subcode, :user, :password, :vendor_number
-    attr_accessor :test_mode, :proxy, :logger
+    attr_accessor :eai, :preamble, :op_initials, :subcode, :user, :password, :vendor_number, :test_mode, :proxy
 
     def configure
       yield self
@@ -60,7 +59,7 @@ module Experian
       assert_experian_domain
       @ecals_last_update = Time.now
     rescue Excon::Errors::SocketError => e
-      raise Experian::ClientError, "Could not connect to Experian: #{e.message}"
+      raise Experian::ClientError.new(nil), "Could not connect to Experian: #{e.message}"
     end
 
     def ecals_lookup_required?
@@ -70,7 +69,7 @@ module Experian
     def assert_experian_domain
       unless @net_connect_uri.host.end_with?('.experian.com')
         @net_connect_uri = nil
-        raise Experian::ClientError, "Could not authenticate connection to Experian, unexpected host name."
+        raise Experian::ClientError.new(nil), "Could not authenticate connection to Experian, unexpected host name."
       end
     end
 

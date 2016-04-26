@@ -6,9 +6,20 @@ describe Experian::Response do
     @response = Experian::Response.new(fixture("connect_check", "response.xml"))
   end
 
-  it "should raise a ClientError if response contains invalid xml" do
-    assert_raises(Experian::ClientError) do
-      response = Experian::Response.new("malformed xml")
+  describe 'client error' do
+    it "should raise a ClientError if response contains invalid xml" do
+      assert_raises(Experian::ClientError) do
+        response = Experian::Response.new("malformed xml")
+      end
+    end
+
+    it "includes an error message" do
+      begin
+        response = Experian::Response.new("malformed xml")
+        flunk "Expected client error"
+      rescue Experian::ClientError => e
+        assert_equal "Invalid xml response from Experian", e.message
+      end
     end
   end
 

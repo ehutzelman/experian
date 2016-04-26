@@ -8,9 +8,10 @@ end
 
 group :test do
   gem 'minitest'
-  gem 'webmock'
+  gem 'webmock', '< 2.0.0'
   gem 'mocha', require: false
   gem 'timecop'
+  gem 'pry-byebug'
 end
 
 gemspec

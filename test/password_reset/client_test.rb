@@ -33,7 +33,7 @@ describe Experian::PasswordReset::Client do
 
     it "returns false if the response wasn't success" do
       @raw_response.stubs(:headers).returns('Response' => "FAILURE")
-      assert_kind_of FalseClass, @client.reset_password('password')      
+      assert_kind_of FalseClass, @client.reset_password('password')
     end
 
   end

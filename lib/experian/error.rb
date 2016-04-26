@@ -1,16 +1,23 @@
 module Experian
   class Error < StandardError
+    attr_reader :response
 
-    def self.message(code)
-      "Experian: " + (codes[code] || "Error Code #{code}")
+    def initialize(response = nil)
+      @response = response
     end
 
-    # Experian has hundreds of codes documented, only populated small set
-    def self.codes
-      {
-        1 => "System temporarily unavailable. Please resubmit",
-        53 => "Invalid social security number"
-      }
+    class << self
+      def message(code)
+        "Experian: " + (codes[code] || "Error Code #{code}")
+      end
+
+      # Experian has hundreds of codes documented, only populated small set
+      def codes
+        {
+          1 => "System temporarily unavailable. Please resubmit",
+          53 => "Invalid social security number"
+        }
+      end
     end
   end
 
@@ -19,5 +26,4 @@ module Experian
   class Forbidden < ClientError; end
   class ServerError < Error; end
   class AuthenticationError < Error; end
-
 end

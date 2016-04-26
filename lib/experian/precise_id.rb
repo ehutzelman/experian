@@ -9,7 +9,7 @@ module Experian
   module PreciseId
     DB_HOST = "PRECISE_ID"
     DB_HOST_TEST = "PRECISE_ID_TEST"
-    
+
     def self.db_host
       Experian.test_mode? ? DB_HOST_TEST : DB_HOST
     end

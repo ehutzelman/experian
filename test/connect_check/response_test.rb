@@ -11,7 +11,7 @@ describe Experian::ConnectCheck::Response do
     it "parses out defined segments into array" do
       assert_equal 22, @response.segments.count
     end
-  
+
     it "returns a specific segment" do
       assert_equal "12500220603PRTBPPCTQQ", @response.segment(125)
     end
