@@ -15,7 +15,7 @@ module Experian
 
   class << self
 
-    attr_accessor :eai, :preamble, :op_initials, :subcode, :user, :password, :vendor_number, :test_mode, :proxy
+    attr_accessor :eai, :preamble, :op_initials, :subcode, :user, :password, :vendor_number, :test_mode
 
     def configure
       yield self

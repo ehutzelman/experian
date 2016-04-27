@@ -13,21 +13,6 @@ describe Experian::Client do
     client.stubs(:request_uri).returns request_uri
   end
 
-  describe 'initializing excon' do
-    it "includes the proxy in the excon arguments" do
-      proxy = "http://proxy.example.com/"
-      Experian.proxy = proxy
-      excon_class.expects(:new).with(request_uri,{idempotent:true,proxy:proxy}).returns excon
-      client.submit_request(request)
-    end
-
-    it "doesn't include the proxy if it's not provided" do
-      Experian.proxy = nil
-      excon_class.expects(:new).with(request_uri,{idempotent:true}).returns excon
-      client.submit_request(request)
-    end
-  end
-
   describe 'stubbed excon' do
     it "submits the request and return the raw response" do
       assert_equal response, client.submit_request(request)
@@ -55,30 +40,30 @@ describe Experian::Client do
       end
     end
 
-    describe 'forbidden error' do
+    describe '302 authentication error' do
       before do
-        response.stubs(:headers).returns({ "Location" => "sso_logon" })
+        response.stubs(:status).returns 302
       end
 
-      it "raises a forbidden exception if logon location header returned" do
-        assert_raises(Experian::Forbidden) do
+      it "raises an AuthenticationError" do
+        assert_raises(Experian::AuthenticationError) do
           client.submit_request(request)
         end
       end
 
-      it "returns the raw response in the error" do
+      it "includes the raw response in the error" do
         begin
           client.submit_request(request)
-          flunk "Expected a forbidden error"
-        rescue Experian::Forbidden => e
+          flunk "Expected an AuthenticationError"
+        rescue Experian::AuthenticationError => e
           assert_equal response, e.response
         end
       end
     end
 
-    describe '302 authentication error' do
+    describe '303 authentication error' do
       before do
-        response.stubs(:status).returns 302
+        response.stubs(:status).returns 303
       end
 
       it "raises an AuthenticationError" do

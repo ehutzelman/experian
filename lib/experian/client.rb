@@ -10,7 +10,9 @@ module Experian
 
     def validate_response(response)
       case response.status
-      when 302
+      when 200..299
+        response
+      when 302, 303
         # from docs:
         # Any of the following: Unauthorized user (this can occur due to an incorrect User ID and/or Password);
         # incorrect base64 encoding in the authorization header;
@@ -29,11 +31,8 @@ module Experian
       when 500..599
         raise Experian::ServerError.new(response), "Response Code: #{response.status}"
       else
-        if !!(response.headers["Location"] =~ /sso_logon/)
-          raise Experian::Forbidden.new(response), "Invalid Experian login credentials"
-        else
-          response
-        end
+        # unrecognised error
+        raise Experian::Error.new(response), "Response Code: #{response.status}"
       end
     end
 
@@ -46,9 +45,7 @@ module Experian
     end
 
     def excon_options
-      {idempotent: true}.tap do |options|
-        options[:proxy] = Experian.proxy if Experian.proxy
-      end
+      {idempotent: true}
     end
 
     def request_uri
