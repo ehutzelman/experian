@@ -3,7 +3,7 @@ module Experian
     class Client < Experian::Client
       def check_credit(options = {})
         assert_check_credit_options(options)
-        Response.new(submit_request(Request.new(options)).body)
+        Response.new(submit_request(Request.new(options)))
       end
 
       def assert_check_credit_options(options)

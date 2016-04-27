@@ -18,7 +18,7 @@ module Experian
 
       def submit_request(request)
         raw_response = super
-        response = Response.new(raw_response.body)
+        response = Response.new(raw_response)
         [request,response]
       end
 

@@ -40,21 +40,23 @@ module Experian
     private
 
     def post_request(request)
-      excon(request).post(body: request.body, headers: request.headers)
-    end
-
-    def request_uri
-      Experian.net_connect_uri
-    end
-
-    def excon(request)
-      Excon.new(request_uri.to_s, excon_options)
+      excon_class.
+        new(request_uri.to_s, excon_options).
+        post(body: request.body, headers: request.headers)
     end
 
     def excon_options
       {idempotent: true}.tap do |options|
         options[:proxy] = Experian.proxy if Experian.proxy
       end
+    end
+
+    def request_uri
+      Experian.net_connect_uri
+    end
+
+    def excon_class
+      Excon
     end
   end
 end

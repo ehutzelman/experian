@@ -1,7 +1,6 @@
 require 'test_helper'
 
 describe Experian::ConnectCheck::Response do
-
   describe "successful response" do
     before do
       stub_experian_request("connect_check", "response.xml")

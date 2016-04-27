@@ -2,8 +2,8 @@ require 'test_helper'
 
 describe Experian::PreciseId::Response do
 
-  def subject(xml_string)
-    Experian::PreciseId::Response.new(xml_string)
+  def subject(raw_response)
+    Experian::PreciseId::Response.new(raw_response)
   end
 
   describe "successful response" do
@@ -85,21 +85,19 @@ describe Experian::PreciseId::Response do
     end
 
     describe "precise_id error" do
-
-      def xml_string
-        fixture("precise_id", "error-response.xml")
-      end
+      let(:xml_string) { fixture("precise_id", "error-response.xml") }
+      let(:raw_response) { stub(status: 500, body: xml_string, headers: {}) }
 
       it 'success? is false' do
-        assert_equal subject(xml_string).success?, false
+        assert_equal subject(raw_response).success?, false
       end
 
       it 'error? is true' do
-        assert_equal subject(xml_string).error?, true
+        assert_equal subject(raw_response).error?, true
       end
 
       it 'error message' do
-        assert_equal subject(xml_string).error_message, "Consumer is a minor"
+        assert_equal subject(raw_response).error_message, "Consumer is a minor"
       end
 
       describe "integration tests" do
@@ -125,29 +123,27 @@ describe Experian::PreciseId::Response do
     end
 
     describe "4000 level error" do
-
-      def xml_string
-        fixture("precise_id", "4000-completion-code-response.xml")
-      end
+      let(:xml_string) { fixture("precise_id", "4000-completion-code-response.xml") }
+      let(:raw_response) { stub(status: 401, body: xml_string, headers: {}) }
 
       it 'success? is false' do
-        assert_equal subject(xml_string).success?, false
+        assert_equal subject(raw_response).success?, false
       end
 
       it 'error? is true' do
-        assert_equal subject(xml_string).error?, true
+        assert_equal subject(raw_response).error?, true
       end
 
       it 'error message' do
-        assert_equal subject(xml_string).error_message, "System error. Call Experian Technical Support at 1-800-854-7201"
+        assert_equal subject(raw_response).error_message, "System error. Call Experian Technical Support at 1-800-854-7201"
       end
 
       it 'error_code is nil' do
-        assert_equal subject(xml_string).error_code, nil
+        assert_equal subject(raw_response).error_code, nil
       end
 
       it 'completion code is 4000' do
-        assert_equal subject(xml_string).completion_code, "4000"
+        assert_equal subject(raw_response).completion_code, "4000"
       end
 
 

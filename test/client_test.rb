@@ -4,32 +4,31 @@ describe Experian::Client do
   let(:client) { Experian::Client.new }
   let(:request) { stub(body: "NETCONNECT_TRANSACTION=fake+xml+content", headers: {}) }
   let(:response) { stub(status: 200, headers:{}, body:"") }
+  let(:request_uri) { "http://example.com" }
   let(:excon) { stub(post: response) }
+  let(:excon_class) { stub(new: excon) }
+
+  before do
+    client.stubs(:excon_class).returns excon_class
+    client.stubs(:request_uri).returns request_uri
+  end
 
   describe 'initializing excon' do
-    before do
-      stub_experian_uri_lookup
-    end
-
     it "includes the proxy in the excon arguments" do
       proxy = "http://proxy.example.com/"
       Experian.proxy = proxy
-      Excon.expects(:new => excon).with('http://user:password@fake.experian.com',{idempotent:true,proxy:proxy})
+      excon_class.expects(:new).with(request_uri,{idempotent:true,proxy:proxy}).returns excon
       client.submit_request(request)
     end
 
     it "doesn't include the proxy if it's not provided" do
       Experian.proxy = nil
-      Excon.expects(:new => excon).with('http://user:password@fake.experian.com',{idempotent:true})
+      excon_class.expects(:new).with(request_uri,{idempotent:true}).returns excon
       client.submit_request(request)
     end
   end
 
   describe 'stubbed excon' do
-    before do
-      client.stubs(:excon).returns excon
-    end
-
     it "submits the request and return the raw response" do
       assert_equal response, client.submit_request(request)
     end
