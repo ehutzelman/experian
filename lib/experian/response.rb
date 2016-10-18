@@ -5,8 +5,9 @@ module Experian
 
       attr_reader :xml
 
-      def initialize(xml)
-        @xml = xml
+      def initialize(raw_response)
+        @raw_response = raw_response
+        @xml = raw_response.body
         @response = parse_xml_response
       end
 
@@ -54,7 +55,7 @@ module Experian
         if root
           parse_element(root)
         else
-          raise Experian::ClientError, "Invalid xml response from Experian"
+          raise Experian::ClientError.new(@raw_response), "Invalid xml response from Experian"
         end
       end
 

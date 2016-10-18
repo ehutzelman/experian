@@ -18,24 +18,8 @@ module Experian
 
       def submit_request(request)
         raw_response = super
-        response = Response.new(raw_response.body)
+        response = Response.new(raw_response)
         [request,response]
-      rescue => e
-        log_error(e)
-        log_raw_response(raw_response)
-        raise e
-      end
-
-      def log_error(e)
-        Experian.logger.error "#{e.message}. #{e.backtrace.join(', ')}" if Experian.logger
-      end
-
-      def log_raw_response(raw_response)
-        if Experian.logger && raw_response
-          Experian.logger.info "Status: #{raw_response.status}, Headers: #{raw_response.headers}, Body: #{raw_response.body}"
-        elsif Experian.logger
-          Experian.logger.error "Response was nil"
-        end
       end
 
       def request_uri

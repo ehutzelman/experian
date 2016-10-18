@@ -38,5 +38,4 @@ Experian.configure do |config|
   config.password = "password"
   config.vendor_number = "P55"
   config.test_mode = true
-  config.proxy = 'http://example.com'
 end

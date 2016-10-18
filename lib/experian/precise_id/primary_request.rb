@@ -1,7 +1,6 @@
 module Experian
   module PreciseId
     class PrimaryRequest < Request
-      
       def add_request_content(xml)
         xml.tag!('XMLVersion', "5.0")
         add_subscriber(xml)
