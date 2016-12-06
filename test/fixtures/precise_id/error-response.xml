@@ -1,24 +1,26 @@
-<NetConnectResponse>
-  <CompletionCode>0000</CompletionCode>
-  <ReferenceId/>
-  <Products>
-    <PreciseIDServer>
-      <XMLVersion>5.0</XMLVersion>
-      <Error>
-        <HostID>0</HostID>
-        <ApplicationID>C</ApplicationID>
-        <ReportDate>07132006</ReportDate>
-        <ReportTime>153026</ReportTime>
-        <ReportType>X</ReportType>
-        <Preamble>TCA1</Preamble>
-        <RegionCode>W</RegionCode>
-        <ARFVersion>07</ARFVersion>
-        <ErrorCode>010</ErrorCode>
-        <ErrorDescription>Consumer is a minor</ErrorDescription>
-        <ActionIndicator>I</ActionIndicator>
-        <ModuleID>PID</ModuleID>
-        <ReferenceNumber>TESTCASE72 - PRECISEID_DEMOALL</ReferenceNumber>
-      </Error>
-    </PreciseIDServer>
-  </Products>
-</NetConnectResponse>
+<Experian>
+  <FraudSolutions>
+    <Response>
+      <Products>
+        <PreciseIDServer>
+          <PIDXMLVersion>06.00</PIDXMLVersion>
+          <Error>
+            <HostID>0</HostID>
+            <ApplicationID>C</ApplicationID>
+            <ReportDate>07132006</ReportDate>
+            <ReportTime>153026</ReportTime>
+            <ReportType>X</ReportType>
+            <Preamble>TCA1</Preamble>
+            <RegionCode>W</RegionCode>
+            <ARFVersion>07</ARFVersion>
+            <ErrorCode>010</ErrorCode>
+            <ErrorDescription>Consumer is a minor</ErrorDescription>
+            <ActionIndicator>I</ActionIndicator>
+            <ModuleID>PID</ModuleID>
+            <ReferenceNumber>TESTCASE72 - PRECISEID_DEMOALL</ReferenceNumber>
+          </Error>
+        </PreciseIDServer>
+      </Products>
+    </Response>
+  </FraudSolutions>
+</Experian>

@@ -1,11 +1,20 @@
 require 'test_helper'
 
 describe Experian::Response do
-  let(:response_body) { fixture("connect_check", "response.xml") }
+  let(:response_body) { fixture("precise_id", "primary-response.xml") }
   let(:raw_response) { stub(status: 200, body: response_body, headers: {}) }
+
   subject { Experian::Response.new(raw_response) }
 
-  describe 'client error' do
+  it "recognises that the response was a success" do
+    assert subject.success?
+  end
+
+  it "recognises that there were no errors" do
+    refute subject.error?
+  end
+
+  describe 'malformed xml' do
     let(:raw_response) { stub(status: 200, body: "malformed xml", headers: {}) }
 
     it "should raise a ClientError if response contains invalid xml" do
@@ -33,27 +42,51 @@ describe Experian::Response do
     end
   end
 
-  it "extracts the host response" do
-    refute_nil subject.host_response
-  end
+  describe 'system error' do
+    let(:response_body) { fixture("errors", "system-error.xml") }
 
-  it "extracts the completion code" do
-    assert_equal "0000", subject.completion_code
-  end
-
-  it "extracts the transaction id" do
-    assert_equal "8276972", subject.transaction_id
-  end
-
-  describe 'error fields' do
-    let(:response_body) { fixture("connect_check", "response_error.xml") }
-
-    it "extracts the error message" do
-      assert_equal "Invalid request format", subject.error_message
+    it "recognises that there has been an error" do
+      assert subject.error?
     end
 
-    it "extracts the tag" do
-      assert_equal "NetConnectRequest/Request/Products/ConnectCheck/PrimaryApplicant/ConnectCheck_PrimaryApplicantTypeChoice/null", subject.error_tag
+    it "recognises that the response was not a success" do
+      refute subject.success?
+    end
+
+    it "extracts the completion code" do
+      assert_equal "4000", subject.error_code
+    end
+
+    it "extracts the error message" do
+      assert_equal "System error. Call Experian Technical Support at 1-800-854-7201.", subject.error_message
+    end
+
+    it "extracts the reference id" do
+      assert_equal "userabc001", subject.reference_id
+    end
+  end
+
+  describe 'format error' do
+    let(:response_body) { fixture("errors", "format-error.xml") }
+
+    it "recognises that there has been an error" do
+      assert subject.error?
+    end
+
+    it "recognises that the response was not a success" do
+      refute subject.success?
+    end
+
+    it "extracts the completion code" do
+      assert_equal "1000", subject.error_code
+    end
+
+    it "extracts the error message" do
+      assert_equal "Invalid Request Format", subject.error_message
+    end
+
+    it "extracts the reference id" do
+      assert_nil subject.reference_id
     end
   end
 end

@@ -1,6 +1,8 @@
-<NetConnectResponse>
-  <CompletionCode>0000</CompletionCode>
-  <ReferenceId/>
-  <Products>
-  </Products>
-</NetConnectResponse>
+<Experian>
+  <FraudSolutions>
+    <Response>
+      <Products>
+      </Products>
+    </Response>
+  </FraudSolutions>
+</Experian>

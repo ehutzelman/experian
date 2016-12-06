@@ -2,7 +2,7 @@ module Experian
   module PreciseId
     class PrimaryRequest < Request
       def add_request_content(xml)
-        xml.tag!('XMLVersion', "5.0")
+        xml.tag!('PIDXMLVersion', "06.00")
         add_subscriber(xml)
         add_applicant(xml)
         xml.tag!('Verbose', "Y") if @options[:verbose]
@@ -57,7 +57,7 @@ module Experian
 
       def add_options(xml)
         xml.tag!('Options') do
-          xml.tag!('PreciseIDType', "21")
+          xml.tag!('ProductOption', "21")
           xml.tag!('ReferenceNumber', "XML PROD OP 19") if @options[:reference_number]
           xml.tag!('DetailRequest', "D") if @options[:detail_request]
           xml.tag!('InquiryChannel', "INTE") if @options[:inquiry_channel]

@@ -2,45 +2,35 @@ module Experian
   module PreciseId
     class Response < Experian::Response
       def success?
-        super && has_precise_id_section? && !error?
-      end
-
-      def error?
-        super || !has_precise_id_section? || has_error_section?
+        super && has_precise_id_section?
       end
 
       def error_code
-        has_error_section? ? error_section["ErrorCode"] : nil
+        super || hash_path(precise_id_error_section, "ErrorCode")
       end
 
       def error_message
-        if has_error_section?
-          error_message = error_section["ErrorDescription"]
-        else
-          error_message = nil
-        end
-
-        super || error_message
+        super || hash_path(precise_id_error_section, "ErrorDescription")
       end
 
       def session_id
-        hash_path(@response,"Products","PreciseIDServer","SessionID")
+        hash_path(precise_id_server, "SessionID")
       end
 
       def initial_decision
-        hash_path(@response,"Products","PreciseIDServer","Summary","InitialResults","InitialDecision")
+        hash_path(summary, "InitialDecision")
       end
 
       def final_decision
-        hash_path(@response,"Products","PreciseIDServer","Summary","InitialResults","FinalDecision")
+        hash_path(summary, "FinalDecision")
       end
 
       def accept_refer_code
-        hash_path(@response,"Products","PreciseIDServer","KBAScore","ScoreSummary","AcceptReferCode")
+        hash_path(precise_id_server,"KBAScore","ScoreSummary","AcceptReferCode")
       end
 
       def questions
-        questions = hash_path(@response,"Products","PreciseIDServer","KBA","QuestionSet")
+        questions = hash_path(precise_id_server, "KBA", "QuestionSet")
         if questions
           questions.collect do |question|
             {
@@ -57,32 +47,23 @@ module Experian
       private
 
       def has_precise_id_section?
-        !!precise_id_server_section
-      end
-
-      def precise_id_server_section
-        hash_path(@response,"Products","PreciseIDServer")
+        !!precise_id_server
       end
 
       def has_error_section?
-        !!error_section
+        super || !!precise_id_error_section
       end
 
-      def error_section
-        hash_path(@response,"Products","PreciseIDServer","Error")
+      def precise_id_error_section
+        hash_path(precise_id_server,"Error")
       end
 
-      def hash_path(hash, *path)
-        field = path[0]
-        if path.length == 1
-          hash[field]
-        else
-          if hash[field]
-            hash_path(hash[field], *path[1..-1])
-          else
-            nil
-          end
-        end
+      def summary
+        @summary ||= hash_path(precise_id_server, "Summary")
+      end
+
+      def precise_id_server
+        @precise_id_server ||= hash_path(@response, "Experian", "FraudSolutions", "Response", "Products", "PreciseIDServer")
       end
     end
   end

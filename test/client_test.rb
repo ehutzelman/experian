@@ -2,8 +2,8 @@ require 'test_helper'
 
 describe Experian::Client do
   let(:client) { Experian::Client.new }
-  let(:request) { stub(body: "NETCONNECT_TRANSACTION=fake+xml+content", headers: {}) }
-  let(:response) { stub(status: 200, headers:{}, body:"") }
+  let(:request) { stub(headers: {}, body: "request body") }
+  let(:response) { stub(status: 200, headers:{}, body:"response body") }
   let(:request_uri) { "http://example.com" }
   let(:excon) { stub(post: response) }
   let(:excon_class) { stub(new: excon) }

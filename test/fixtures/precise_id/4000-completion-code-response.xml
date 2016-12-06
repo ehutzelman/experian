@@ -1,5 +1,0 @@
-<NetConnectResponse xmlns="http://www.experian.com/NetConnectResponse">
-  <CompletionCode>4000</CompletionCode>
-  <ErrorMessage>System error. Call Experian Technical Support at 1-800-854-7201</ErrorMessage>
-  <ReferenceId/>
-</NetConnectResponse>

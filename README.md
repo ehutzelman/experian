@@ -73,7 +73,6 @@ Experian will provide you with the following authentication credentials when you
 ```ruby
 # Provide authentication credentials
 Experian.configure do |config|
-  config.eai = "X42PB93F"
   config.preamble = "FCD2"
   config.op_initials = "AB"
   config.subcode = "1968543"

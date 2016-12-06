@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<NetConnectRequest xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.experian.com/NetConnect NetConnect.xsd">
-  <EAI>X42PB93F</EAI>
-  <DBHost>PRECISE_ID_TEST</DBHost>
-  <Request>
-    <Products>
-      <PreciseIDServer>
-        <KBAAddOn>
-          <XMLVersion>5.0</XMLVersion>
-          <OutWalletRequestData>
-            <SessionID>test-session-id</SessionID>
-            <OutWalletQuestionsRequest>Y</OutWalletQuestionsRequest>
-          </OutWalletRequestData>
-        </KBAAddOn>
-      </PreciseIDServer>
-    </Products>
-  </Request>
-</NetConnectRequest>
+<Experian>
+  <FraudSolutions>
+    <Request>
+      <Products>
+        <PreciseIDServer>
+          <PIDXMLVersion>06.00</PIDXMLVersion>
+          <KBAAddOn>
+            <OutWalletRequestData>
+              <SessionID>test-session-id</SessionID>
+              <OutWalletQuestionsRequest>Y</OutWalletQuestionsRequest>
+            </OutWalletRequestData>
+          </KBAAddOn>
+        </PreciseIDServer>
+      </Products>
+    </Request>
+  </FraudSolutions>
+</Experian>

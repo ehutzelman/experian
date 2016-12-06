@@ -2,86 +2,87 @@ require 'rexml/document'
 
 module Experian
   class Response
+    attr_reader :xml
 
-      attr_reader :xml
+    def initialize(raw_response)
+      @raw_response = raw_response
+      @xml = raw_response.body
+      @response = parse_xml_response
+    end
 
-      def initialize(raw_response)
-        @raw_response = raw_response
-        @xml = raw_response.body
-        @response = parse_xml_response
+    def success?
+      !has_error_section?
+    end
+
+    def error?
+      !success?
+    end
+
+    def error_code
+      hash_path(net_connect_section, "CompletionCode")
+    end
+
+    def reference_id
+      hash_path(net_connect_section, "ReferenceId")
+    end
+
+    def error_message
+      hash_path(net_connect_section, "ErrorMessage")
+    end
+
+    private
+
+    def parse_xml_response
+      doc = REXML::Document.new(@xml)
+      if doc.has_elements?
+        {doc.root.name => parse_element(doc.root)}
+      else
+        raise Experian::ClientError.new(@raw_response), "Invalid xml response from Experian"
       end
+    end
 
-      def host_response
-        @response["HostResponse"]
-      end
-
-      def completion_code
-        @response["CompletionCode"]
-      end
-
-      def completion_message
-        Experian::COMPLETION_CODES[completion_code]
-      end
-
-      def transaction_id
-        @response["TransactionId"]
-      end
-
-      def success?
-        completion_code == "0000"
-      end
-
-      def error?
-        completion_code != "0000"
-      end
-
-      def error_message
-        @response["ErrorMessage"]
-      end
-
-      def error_tag
-        @response["ErrorTag"]
-      end
-
-      def error_action_indicator_message
-        Experian::ERROR_ACTION_INDICATORS[error_action_indicator]
-      end
-
-      private
-
-      def parse_xml_response
-        xml = REXML::Document.new(@xml)
-        root = REXML::XPath.first(xml, "//NetConnectResponse")
-        if root
-          parse_element(root)
-        else
-          raise Experian::ClientError.new(@raw_response), "Invalid xml response from Experian"
-        end
-      end
-
-      # parse xml node elements recursively into hash
-      def parse_element(node)
-        if node.has_elements?
-          response = {}
-          node.elements.each do |e|
-            key = e.name
-            value = parse_element(e)
-            if response.has_key?(key)
-              if response[key].is_a?(Array)
-                response[key].push(value)
-              else
-                response[key] = [response[key], value]
-              end
+    # parse xml node elements recursively into hash
+    def parse_element(node)
+      if node.has_elements?
+        response = {}
+        node.elements.each do |e|
+          key = e.name
+          value = parse_element(e)
+          if response.has_key?(key)
+            if response[key].is_a?(Array)
+              response[key].push(value)
             else
-              response[key] = parse_element(e)
+              response[key] = [response[key], value]
             end
+          else
+            response[key] = parse_element(e)
           end
-        else
-          response = node.text
         end
-        response
+      else
+        response = node.text
       end
+      response
+    end
 
+    def has_error_section?
+      !!net_connect_section
+    end
+
+    def net_connect_section
+      @net_connect_section ||= hash_path(@response, "NetConnectResponse")
+    end
+
+    def hash_path(hash, *path)
+      return nil unless hash
+      field = path[0]
+      field_value = hash[field]
+
+      if path.length == 1
+        field_value
+      else
+        hash_path(field_value, *path[1..-1])
+      end
+    end
   end
 end
 

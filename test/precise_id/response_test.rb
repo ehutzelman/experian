@@ -40,26 +40,25 @@ describe Experian::PreciseId::Response do
 
       it "extracts the question set" do
         questions = [{
-                       :type => 12,
-                       :text => "I was born within a year or on the year of the date below.",
-                       :choices => ["1947","1950","1953","1956","NONE OF THE ABOVE"]
-                     },{
-                       :type => 32,
-                       :text => "According to your credit profile, you may have opened a mortgage loan in or around September 2011. Please select the lender to whom you currently make your mortgage payments. If you do not have a mortgage, select 'NONE OF THE ABOVE/DOES NOT APPLY'.",
-                       :choices => ["INDEPENDENCE ONE","UNION BANK OF CALIFORNIA","ROCK FINANCIAL CORP","CROSSLAND MORTGAGE","NONE OF THE ABOVE/DOES NOT APPLY"]
-                     },{
-                       :type => 39,
-                       :text => "Which of the following is a previous phone number of yours? If there is not a matched phone number, please select 'NONE OF THE ABOVE'.",
-                       :choices => ["(626)216-3686","(626)227-2216","(626)207-1851","(626)206-7214","NONE OF THE ABOVE"]
-                     },{
-                       :type => 7,
-                       :text => "You currently or previously resided on one of the following streets. Please select the street name from the following choices.",
-                       :choices => ["NEWSON","GUENEVERE","PARKSIDE","WESTBEND","NONE OF THE ABOVE"]
+          :type => 12,
+          :text => "I was born within a year or on the year of the date below.",
+          :choices => ["1947","1950","1953","1956","NONE OF THE ABOVE"]
+        },{
+          :type => 32,
+          :text => "According to your credit profile, you may have opened a mortgage loan in or around September 2011. Please select the lender to whom you currently make your mortgage payments. If you do not have a mortgage, select 'NONE OF THE ABOVE/DOES NOT APPLY'.",
+          :choices => ["INDEPENDENCE ONE","UNION BANK OF CALIFORNIA","ROCK FINANCIAL CORP","CROSSLAND MORTGAGE","NONE OF THE ABOVE/DOES NOT APPLY"]
+        },{
+          :type => 39,
+          :text => "Which of the following is a previous phone number of yours? If there is not a matched phone number, please select 'NONE OF THE ABOVE'.",
+          :choices => ["(626)216-3686","(626)227-2216","(626)207-1851","(626)206-7214","NONE OF THE ABOVE"]
+        },{
+          :type => 7,
+          :text => "You currently or previously resided on one of the following streets. Please select the street name from the following choices.",
+          :choices => ["NEWSON","GUENEVERE","PARKSIDE","WESTBEND","NONE OF THE ABOVE"]
         }]
         assert_equal(questions, @response.questions)
       end
     end
-
 
     describe :final_response do
       before do
@@ -101,7 +100,6 @@ describe Experian::PreciseId::Response do
       end
 
       describe "integration tests" do
-
         before do
           stub_experian_request("precise_id", "error-response.xml")
           @request, @response = Experian::PreciseId.check_id
@@ -121,37 +119,5 @@ describe Experian::PreciseId::Response do
         end
       end
     end
-
-    describe "4000 level error" do
-      let(:xml_string) { fixture("precise_id", "4000-completion-code-response.xml") }
-      let(:raw_response) { stub(status: 401, body: xml_string, headers: {}) }
-
-      it 'success? is false' do
-        assert_equal subject(raw_response).success?, false
-      end
-
-      it 'error? is true' do
-        assert_equal subject(raw_response).error?, true
-      end
-
-      it 'error message' do
-        assert_equal subject(raw_response).error_message, "System error. Call Experian Technical Support at 1-800-854-7201"
-      end
-
-      it 'error_code is nil' do
-        assert_equal subject(raw_response).error_code, nil
-      end
-
-      it 'completion code is 4000' do
-        assert_equal subject(raw_response).completion_code, "4000"
-      end
-
-
-      it 'calls check id with out raising any exceptions' do
-        stub_experian_request("precise_id", "4000-completion-code-response.xml")
-        @request, @response = Experian::PreciseId.check_id
-      end
-    end
   end
-
 end
