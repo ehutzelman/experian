@@ -95,19 +95,34 @@ client = ::Experian::PreciseId::Client.new
 Once you have a client, you can make requests:
 
 ```ruby
-response = client.check_id(first_name: "Homer", last_name: "Simpson")
+response = client.check_id({
+  first_name: "Homer",
+  last_name: "Simpson",
+  street: "742 Evergreen Terrace",
+  city: "Springfield",
+  state: "IL",
+  zip: "00000",
+  phone: "1234567890",
+  dob: "01011972",
+  email: "hsimpson@example.com",
+  ip_address: "127.0.0.1"
+})
 
 response.success?
 # => true
+response.initial_decision
+# => "ACC"
 ```
 
 ### Handling errors from Experian
 
 ```ruby
-response = client.check_credit(first_name: "Homer", last_name: "Simpson", ssn: "NaN")
+response = client.check_id(first_name: "Homer", last_name: "Simpson")
 
 response.success?
 # => false
+response.error_code
+# => "0001"
 response.error_message
 # => "Invalid request format"
 ```
@@ -124,76 +139,6 @@ request.xml
 response.xml
 # => "<?xml version='1.0' encoding='utf-8'?>..."
 ```
-
-## Precise Id implementation
-
-The XML returned from experian is incredibly detailed and complex. I've only implemented code for a very small portion of the data sent and returned.
-
-### Primary Request
-
-The Primary Request is the first request that is sent to the precise id server, it has the inital required data that must be submitted to experian to do an identity check. The response will be either acceptance, rejection or will require follow up questions. Follow up questions have not been implemented in this gem.
-
-All paths in the below table are sub paths of this root path: `Experian/FraudSolutions/Request/Products/PreciseIDServer`
-
-Some of the xml is set using the values specified below or using the data provided when this gem is initialized.
-
-| xpath                 | value                 |
-| --------------------- | --------------------- |
-| PIDXMLVersion         | 06.00                 |
-| Subscriber/Preamble   | set on initialization |
-| Subscriber/OpInitials | set on initialization |
-| Subscriber/SubCode    | set on initialization |
-| Verbose               | "Y"                   |
-| Vendor/VendorNumber   | set on initialization |
-| Options/ProductOption | 21                    |
-
-Other sections of the xml are set using a hash provided to the client when the request is run.
-
-| xpath                                  | hash key                                                   |
-| -------------------------------------- | ---------------------------------------------------------- |
-| PrimaryApplicant/Name/Surname          | :last_name                                                 |
-| PrimaryApplicant/Name/First            | :first_name                                                |
-| PrimaryApplicant/CurrentAddress/Street | :street                                                    |
-| PrimaryApplicant/CurrentAddress/City   | :city                                                      |
-| PrimaryApplicant/CurrentAddress/State  | :state                                                     |
-| PrimaryApplicant/CurrentAddress/Zip    | :zip                                                       |
-| PrimaryApplicant/Phone/Number          | :phone                                                     |
-| PrimaryApplicant/DOB                   | :dob                                                       |
-| PrimaryApplicant/EmailAddress          | :email                                                     |
-| Options/ReferenceNumber                | "XML PROD OP 19" unless overridden using :reference_number |
-| IPAddress                              | :ip_address                                                |
-
-### Base Response for all responses
-
-Precise id responses look different depending on the result. If there was an error the root element will often be NetConnectResponse.
-
-NetConnectResponse is an older format but still needs to be accounted for here. In precise id 6.0 the format has completely changed for other requests.
-
-The base response deals with the situation when NetConnectResponse is returned. The PreciseId::Response extends this accounting for new format as well.
-
-| method        |                                                                                                                                     |
-| ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
-| success?      | returns false if root node of the returned xml is "NetConnectResponse", if the result was successful it would start with "Experian" |
-| error?        | the opposite to `success?`                                                                                                          |
-| error_code    | the content of NetConnectResponse/CompletionCode                                                                                    |
-| reference_id  | the content of NetConnectResponse/ReferenceId                                                                                       |
-| error_message | the content of NetConnectResponse/ErrorMessage                                                                                      |
-
-### Precise ID Response
-
-Note: The precise id section is under the path Experian/FraudSolutions/Response/Products/PreciseIDServer
-
-| method            |                                                                                                                                 |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
-| success?          | returns true if the PreciseIDServer section exists and the error section ( PreciseIdServer/Error ) doesn't exist                |
-| error?            | opposite to `success?`                                                                                                          |
-| error_code        | returns the content of PreciseIdServer/Error/ErrorCode                                                                          |
-| error_message     | returns the content of PreciseIdServer/Error/ErrorDesciption                                                                    |
-| session_id        | returns the content of PreciseIdServer/SessionID                                                                                |
-| initial_decision  | returns the content of PreciseIdServer/Summary/InitialDecision                                                                  |
-| final_decision    | returns the content of PreciseIdServer/Summary/FinalDecision                                                                    |
-| accept_refer_code | returns the content of PreciseIdServer/KBAScore/ScoreSummary/AcceptReferCode                                                    |
-| accept_refer_code | returns the content of PreciseIdServer/KBA/QuestionSet/AcceptReferCode{QuestionType,QuestionText,QuestionSelect/QuestionChoice} |
 
 ## Contributing
 
