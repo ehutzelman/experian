@@ -50,7 +50,7 @@ module Experian
         !!precise_id_server
       end
 
-      def has_error_section?
+      def has_error?
         super || !!precise_id_error_section
       end
 

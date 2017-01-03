@@ -165,6 +165,12 @@ Other sections of the xml are set using a hash provided to the client when the r
 
 ### Base Response for all responses
 
+Precise id responses look different depending on the result. If there was an error the root element will often be NetConnectResponse.
+
+NetConnectResponse is an older format but still needs to be accounted for here. In precise id 6.0 the format has completely changed for other requests.
+
+The base response deals with the situation when NetConnectResponse is returned. The PreciseId::Response extends this accounting for new format as well.
+
 | method        |                                                                                                                                     |
 | ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | success?      | returns false if root node of the returned xml is "NetConnectResponse", if the result was successful it would start with "Experian" |

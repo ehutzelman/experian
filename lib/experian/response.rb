@@ -11,15 +11,15 @@ module Experian
     end
 
     def success?
-      !has_error_section?
+      !has_error?
     end
 
     def error?
-      !success?
+      has_error?
     end
 
     def error_code
-      hash_path(net_connect_section, "CompletionCode")
+      completion_code
     end
 
     def reference_id
@@ -64,8 +64,12 @@ module Experian
       response
     end
 
-    def has_error_section?
-      !!net_connect_section
+    def has_error?
+      completion_code && completion_code != "0000"
+    end
+
+    def completion_code
+      hash_path(net_connect_section, "CompletionCode")
     end
 
     def net_connect_section
