@@ -138,6 +138,7 @@ All paths in the below table are sub paths of this root path: `Experian/FraudSol
 Some of the xml is set using the values specified below or using the data provided when this gem is initialized.
 
 | xpath                 | value                 |
+| --------------------- | --------------------- |
 | PIDXMLVersion         | 06.00                 |
 | Subscriber/Preamble   | set on initialization |
 | Subscriber/OpInitials | set on initialization |
@@ -149,6 +150,7 @@ Some of the xml is set using the values specified below or using the data provid
 Other sections of the xml are set using a hash provided to the client when the request is run.
 
 | xpath                                  | hash key                                                   |
+| -------------------------------------- | ---------------------------------------------------------- |
 | PrimaryApplicant/Name/Surname          | :last_name                                                 |
 | PrimaryApplicant/Name/First            | :first_name                                                |
 | PrimaryApplicant/CurrentAddress/Street | :street                                                    |
@@ -164,6 +166,7 @@ Other sections of the xml are set using a hash provided to the client when the r
 ### Base Response for all responses
 
 | method        |                                                                                                                                     |
+| ------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
 | success?      | returns false if root node of the returned xml is "NetConnectResponse", if the result was successful it would start with "Experian" |
 | error?        | the opposite to `success?`                                                                                                          |
 | error_code    | the content of NetConnectResponse/CompletionCode                                                                                    |
@@ -175,6 +178,7 @@ Other sections of the xml are set using a hash provided to the client when the r
 Note: The precise id section is under the path Experian/FraudSolutions/Response/Products/PreciseIDServer
 
 | method            |                                                                                                                                 |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------- |
 | success?          | returns true if the PreciseIDServer section exists and the error section ( PreciseIdServer/Error ) doesn't exist                |
 | error?            | opposite to `success?`                                                                                                          |
 | error_code        | returns the content of PreciseIdServer/Error/ErrorCode                                                                          |
