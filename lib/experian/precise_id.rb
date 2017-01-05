@@ -1,6 +1,8 @@
 require 'experian/precise_id/client'
 require 'experian/precise_id/request'
 require 'experian/precise_id/primary_request'
+require 'experian/precise_id/secondary_request'
+require 'experian/precise_id/final_request'
 require 'experian/precise_id/response'
 
 module Experian

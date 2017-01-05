@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Experian>
+  <FraudSolutions>
+    <Request>
+      <Products>
+        <PreciseIDServer>
+          <PIDXMLVersion>06.00</PIDXMLVersion>
+          <KBAAddOn>
+            <OutWalletRequestData>
+              <SessionID>test-session-id</SessionID>
+              <OutWalletQuestionsRequest>Y</OutWalletQuestionsRequest>
+            </OutWalletRequestData>
+          </KBAAddOn>
+        </PreciseIDServer>
+      </Products>
+    </Request>
+  </FraudSolutions>
+</Experian>

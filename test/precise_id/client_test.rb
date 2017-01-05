@@ -11,4 +11,16 @@ describe Experian::PreciseId::Client do
     assert_kind_of Experian::PreciseId::PrimaryRequest, request
     assert_kind_of Experian::PreciseId::Response, response
   end
+
+  it "performs a secondary inquiry" do
+    request,response = @client.request_questions
+    assert_kind_of Experian::PreciseId::SecondaryRequest, request
+    assert_kind_of Experian::PreciseId::Response, response
+  end
+
+  it "performs a final inquiry" do
+    request,response = @client.send_answers
+    assert_kind_of Experian::PreciseId::FinalRequest, request
+    assert_kind_of Experian::PreciseId::Response, response
+  end
 end

@@ -1,10 +1,6 @@
 module Experian
   module PreciseId
     class Response < Experian::Response
-      def success?
-        super && has_precise_id_section?
-      end
-
       def error_code
         super || hash_path(precise_id_error_section, "ErrorCode")
       end
@@ -51,7 +47,7 @@ module Experian
       end
 
       def has_error?
-        super || !!precise_id_error_section
+        super || !!precise_id_error_section || !has_precise_id_section?
       end
 
       def precise_id_error_section
