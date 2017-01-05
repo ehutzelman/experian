@@ -14,31 +14,29 @@ describe Experian::Response do
     refute subject.error?
   end
 
+  it "returns an element" do
+    element = subject.element_at("Experian/FraudSolutions/Response/Products/PreciseIDServer/Summary/CrossReferenceIndicatorsGrid/FullNameVerifiesToAddress")
+    assert_equal "Match", element.text
+    assert_equal "MA", element.attributes["code"]
+  end
+
+  it "returns nil if an element doesn't exist" do
+    element = subject.element_at("Experian/Nothing")
+    assert_equal element, nil
+  end
+
+  it "returns an array of elements" do
+    array = subject.enum_at("Experian/FraudSolutions/Response/Products/PreciseIDServer/PreciseMatch/Addresses/Address/Detail/ResidentialAddressRcd/OtherHouseholdMembers/Name").collect { |n| n.text }
+    assert_equal array, ["John", "Jane", "Sam"]
+  end
+
   describe 'malformed xml' do
     let(:raw_response) { stub(status: 200, body: "malformed xml", headers: {}) }
 
     it "should raise a ClientError if response contains invalid xml" do
-      assert_raises(Experian::ClientError) do
-        subject
-      end
-    end
-
-    it "includes the raw response" do
-      begin
-        subject
-        flunk "Expected client error"
-      rescue Experian::ClientError => e
-        assert_equal raw_response, e.response
-      end
-    end
-
-    it "includes an error message" do
-      begin
-        subject
-        flunk "Expected client error"
-      rescue Experian::ClientError => e
-        assert_equal "Invalid xml response from Experian", e.message
-      end
+      e = assert_raises(Experian::ClientError) { subject }
+      assert_equal raw_response, e.response
+      assert_equal "Invalid xml response from Experian", e.message
     end
   end
 

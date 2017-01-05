@@ -109,9 +109,9 @@
                     <AreaCode>562</AreaCode>
                     <Phone>9414699</Phone>
                     <OtherHouseholdMembers>
-                      <Name1/>
-                      <Name2/>
-                      <Name3/>
+                      <Name>John</Name>
+                      <Name>Jane</Name>
+                      <Name>Sam</Name>
                     </OtherHouseholdMembers>
                     <LastUpdatedDate>19990124</LastUpdatedDate>
                     <MonthsAtResidence>0093</MonthsAtResidence>
@@ -159,9 +159,9 @@
                     <Phone/>
                     <SpouseName/>
                     <OtherHouseholdMembers>
-                      <Name1/>
-                      <Name2/>
-                      <Name3/>
+                      <Name/>
+                      <Name/>
+                      <Name/>
                     </OtherHouseholdMembers>
                     <LastUpdatedDate/>
                     <MonthsAtResidence/>

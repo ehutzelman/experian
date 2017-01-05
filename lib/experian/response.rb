@@ -1,4 +1,5 @@
 require 'rexml/document'
+require 'rexml/xpath'
 
 module Experian
   class Response
@@ -7,7 +8,8 @@ module Experian
     def initialize(raw_response)
       @raw_response = raw_response
       @xml = raw_response.body
-      @response = parse_xml_response
+      @doc = REXML::Document.new(@xml)
+      validate
     end
 
     def success?
@@ -23,45 +25,30 @@ module Experian
     end
 
     def reference_id
-      hash_path(net_connect_section, "ReferenceId")
+      value_at("NetConnectResponse/ReferenceId")
     end
 
     def error_message
-      hash_path(net_connect_section, "ErrorMessage")
+      value_at("NetConnectResponse/ErrorMessage")
+    end
+
+    def value_at(path, parent = nil)
+      e = element_at(path, parent)
+      e.text if e
+    end
+
+    def element_at(path, parent = nil)
+      REXML::XPath.first(parent || @doc, path)
+    end
+
+    def enum_at(path, parent = nil)
+      REXML::XPath.each(parent || @doc, path)
     end
 
     private
 
-    def parse_xml_response
-      doc = REXML::Document.new(@xml)
-      if doc.has_elements?
-        {doc.root.name => parse_element(doc.root)}
-      else
-        raise Experian::ClientError.new(@raw_response), "Invalid xml response from Experian"
-      end
-    end
-
-    # parse xml node elements recursively into hash
-    def parse_element(node)
-      if node.has_elements?
-        response = {}
-        node.elements.each do |e|
-          key = e.name
-          value = parse_element(e)
-          if response.has_key?(key)
-            if response[key].is_a?(Array)
-              response[key].push(value)
-            else
-              response[key] = [response[key], value]
-            end
-          else
-            response[key] = parse_element(e)
-          end
-        end
-      else
-        response = node.text
-      end
-      response
+    def validate
+      raise Experian::ClientError.new(@raw_response), "Invalid xml response from Experian" unless @doc.has_elements?
     end
 
     def has_error?
@@ -69,23 +56,7 @@ module Experian
     end
 
     def completion_code
-      hash_path(net_connect_section, "CompletionCode")
-    end
-
-    def net_connect_section
-      @net_connect_section ||= hash_path(@response, "NetConnectResponse")
-    end
-
-    def hash_path(hash, *path)
-      return nil unless hash
-      field = path[0]
-      field_value = hash[field]
-
-      if path.length == 1
-        field_value
-      else
-        hash_path(field_value, *path[1..-1])
-      end
+      value_at("NetConnectResponse/CompletionCode")
     end
   end
 end
