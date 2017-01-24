@@ -1,88 +1,59 @@
 module Experian
   module PreciseId
     class Response < Experian::Response
-      def success?
-        super && has_precise_id_section? && !error?
-      end
-
-      def error?
-        super || !has_precise_id_section? || has_error_section?
-      end
+      PRECISE_ID_SERVER_PATH = "Experian/FraudSolutions/Response/Products/PreciseIDServer"
 
       def error_code
-        has_error_section? ? error_section["ErrorCode"] : nil
+        super || value_at(PRECISE_ID_SERVER_PATH + "/Error/ErrorCode")
       end
 
       def error_message
-        if has_error_section?
-          error_message = error_section["ErrorDescription"]
-        else
-          error_message = nil
-        end
-
-        super || error_message
+        super || value_at(PRECISE_ID_SERVER_PATH + "/Error/ErrorDescription")
       end
 
       def session_id
-        hash_path(@response,"Products","PreciseIDServer","SessionID")
+        value_at(PRECISE_ID_SERVER_PATH + "/SessionID")
       end
 
       def initial_decision
-        hash_path(@response,"Products","PreciseIDServer","Summary","InitialResults","InitialDecision")
+        value_at(PRECISE_ID_SERVER_PATH + "/Summary/InitialDecision")
       end
 
       def final_decision
-        hash_path(@response,"Products","PreciseIDServer","Summary","InitialResults","FinalDecision")
+        value_at(PRECISE_ID_SERVER_PATH + "/Summary/FinalDecision")
       end
 
       def accept_refer_code
-        hash_path(@response,"Products","PreciseIDServer","KBAScore","ScoreSummary","AcceptReferCode")
+        value_at(PRECISE_ID_SERVER_PATH + "/KBAScore/ScoreSummary/AcceptReferCode")
       end
 
       def questions
-        questions = hash_path(@response,"Products","PreciseIDServer","KBA","QuestionSet")
-        if questions
-          questions.collect do |question|
-            {
-              :type => question["QuestionType"].to_i,
-              :text => question["QuestionText"],
-              :choices => question["QuestionSelect"]["QuestionChoice"]
-            }
-          end
-        else
-          []
+        questions = enum_at(PRECISE_ID_SERVER_PATH +  "/KBA/QuestionSet")
+        questions.collect do |question|
+          {
+            :type => value_at("QuestionType", question).to_i,
+            :text => value_at("QuestionText", question),
+            :choices => enum_at("QuestionSelect/QuestionChoice", question).collect { |c| c.text }
+          }
         end
       end
 
       private
 
-      def has_precise_id_section?
-        !!precise_id_server_section
+      def precise_id_section?
+        !!element_at(PRECISE_ID_SERVER_PATH)
       end
 
-      def precise_id_server_section
-        hash_path(@response,"Products","PreciseIDServer")
+      def has_error?
+        super || precise_id_error_section? || !precise_id_section?
       end
 
-      def has_error_section?
-        !!error_section
+      def precise_id_error_section?
+        !!element_at(PRECISE_ID_SERVER_PATH + "/Error")
       end
 
-      def error_section
-        hash_path(@response,"Products","PreciseIDServer","Error")
-      end
-
-      def hash_path(hash, *path)
-        field = path[0]
-        if path.length == 1
-          hash[field]
-        else
-          if hash[field]
-            hash_path(hash[field], *path[1..-1])
-          else
-            nil
-          end
-        end
+      def precise_id_server
+        value_at(PRECISE_ID_SERVER_PATH)
       end
     end
   end

@@ -3,7 +3,7 @@ module Experian
     class FinalRequest < Request
 
       def add_request_content(xml)
-        xml.tag!('XMLVersion', "5.0")
+        xml.tag!('PIDXMLVersion', "06.00")
         xml.tag!('KBAAnswers') do
           xml.tag!('OutWalletAnswerData') do
             xml.tag!('SessionID', @options[:session_id])

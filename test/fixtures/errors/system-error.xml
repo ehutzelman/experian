@@ -1,0 +1,6 @@
+<?xml version="1.0" standalone="no"?>
+<NetConnectResponse>
+  <CompletionCode>4000</CompletionCode>
+  <ErrorMessage>System error. Call Experian Technical Support at 1-800-854-7201.</ErrorMessage>
+  <ReferenceId>userabc001</ReferenceId>
+</NetConnectResponse>

@@ -49,7 +49,7 @@ module Experian
     end
 
     def request_uri
-      Experian.net_connect_uri
+      raise "Request uri undefined"
     end
 
     def excon_class

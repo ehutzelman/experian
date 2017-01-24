@@ -1,342 +1,360 @@
-<NetConnectResponse>
-  <CompletionCode>0000</CompletionCode>
-  <ReferenceId/>
-  <Products>
-    <PreciseIDServer>
-      <XMLVersion>5.0</XMLVersion>
-      <SessionID>ABD78890875A0A122CAE729944D0C426.pidd1v-1403100745130210016413827</SessionID>
-      <Header>
-        <ReportDate>03102014</ReportDate>
-        <ReportTime>074514</ReportTime>
-        <Preamble>TBD2</Preamble>
-        <ReferenceNumber>XML PROD OP 19</ReferenceNumber>
-      </Header>
-      <Messages/>
-      <Summary>
-        <ReviewReferenceID>6259966</ReviewReferenceID>
-        <PreciseIDType>21</PreciseIDType>
-        <ComplianceIndicator>RE</ComplianceIndicator>
-        <ComplianceDescription>Refer</ComplianceDescription>
-        <InitialResults>
-          <InitialDecision>REF</InitialDecision>
-          <FinalDecision>REF</FinalDecision>
-        </InitialResults>
-        <CrossReferenceIndicatorsGrid>
-          <FullNameVerifiesToAddress code="NM">NO Match</FullNameVerifiesToAddress>
-          <FullNameVerifiesToSSN code="NM">NO Match</FullNameVerifiesToSSN>
-          <FullNameVerifiesToDL code="NM">NO Match</FullNameVerifiesToDL>
-          <FullNameVerifiesToPhone code="NM">NO Match</FullNameVerifiesToPhone>
-          <SurnameOnlyVerifiesToAddress code="MA">Match</SurnameOnlyVerifiesToAddress>
-          <SurnameOnlyVerifiesToSSN code="MA">NO Match</SurnameOnlyVerifiesToSSN>
-          <SurnameOnlyVerifiesToDL code="NM">NO Match</SurnameOnlyVerifiesToDL>
-          <SurnameOnlyVerifiesToPhone code="NM">NO Match</SurnameOnlyVerifiesToPhone>
-          <AddressVerifiesToFullName code="NM">NO Match</AddressVerifiesToFullName>
-          <AddressVerifiesToSurnameOnly code="MA">Match</AddressVerifiesToSurnameOnly>
-          <AddressVerifiesToSSN code="NM">NO Match</AddressVerifiesToSSN>
-          <AddressVerifiesToDL code="NM">NO Match</AddressVerifiesToDL>
-          <AddressVerifiesToPhone code="NM">NO Match</AddressVerifiesToPhone>
-          <SSNVerifiesToFullName code="NM">NO Match</SSNVerifiesToFullName>
-          <SSNVerifiesToSurnameOnly code="NM">NO Match</SSNVerifiesToSurnameOnly>
-          <SSNVerifiesToAddress code="NM">NO Match</SSNVerifiesToAddress>
-          <DLVerifiesToFullName code="NM">NO Match</DLVerifiesToFullName>
-          <DLVerifiesToSurnameOnly code="NM">NO Match</DLVerifiesToSurnameOnly>
-          <DLVerifiesToAddress code="NM">NO Match</DLVerifiesToAddress>
-          <PhoneVerifiesToFullName code="NM">NO Match</PhoneVerifiesToFullName>
-          <PhoneVerifiesToSurnameOnly code="NM">NO Match</PhoneVerifiesToSurnameOnly>
-          <PhoneVerifiesToAddress code="NM">NO Match</PhoneVerifiesToAddress>
-        </CrossReferenceIndicatorsGrid>
-        <DateOfBirthMatch code="6">DOB not provided on request</DateOfBirthMatch>
-      </Summary>
-      <GLBDetail>
-        <CheckpointSummary>
-          <PrimaryResultCode code="00">Data found for search request</PrimaryResultCode>
-          <BestPickAcceptDeny code="A">Accept</BestPickAcceptDeny>
-          <AddrCode>G1</AddrCode>
-          <PhnCode>M </PhnCode>
-          <AddrTypeCode>S </AddrTypeCode>
-          <COACode>N </COACode>
-          <SSNCode>M </SSNCode>
-          <AddrUnitMismatchCode/>
-          <PhnUnitMismatchCode/>
-          <DLResultCode>M</DLResultCode>
-          <DateOfBirthMatch>6</DateOfBirthMatch>
-          <HighRiskAddrCode>N </HighRiskAddrCode>
-          <HighRiskPhoneCode>N </HighRiskPhoneCode>
-          <OFACValidationResult>1 </OFACValidationResult>
-          <AddrResMatches>0001</AddrResMatches>
-          <AddrBusMatches>0000</AddrBusMatches>
-          <PhnResMatches>0000</PhnResMatches>
-          <PhnBusMatches>0000</PhnBusMatches>
-        </CheckpointSummary>
-        <FraudShield>
-          <FS01>N</FS01>
-          <FS02>N</FS02>
-          <FS03>N</FS03>
-          <FS04>N</FS04>
-          <FS05>N</FS05>
-          <FS06>N</FS06>
-          <FS10>N</FS10>
-          <FS11>N</FS11>
-          <FS13>N</FS13>
-          <FS14>N</FS14>
-          <FS15>N</FS15>
-          <FS16>N</FS16>
-          <FS17>N</FS17>
-          <FS18>N</FS18>
-          <FS21>N</FS21>
-          <FS25>N</FS25>
-          <FS26>N</FS26>
-        </FraudShield>
-      </GLBDetail>
-      <Checkpoint>
-        <GeneralResults>
-          <ProfileID>33MD287 </ProfileID>
-          <AccountInformation>6259966                       </AccountInformation>
-          <Version>01</Version>
-          <PrimaryResult code="00">Data found for search request</PrimaryResult>
-          <BestPickAcceptDeny code="A">Accept</BestPickAcceptDeny>
-          <SourceFlag/>
-          <CheckpointTemplate>STDADD    </CheckpointTemplate>
-          <NameFlipIndicator code=" ">Default</NameFlipIndicator>
-          <AddressVerificationResult code="G1">First name does not match or is missing, exact match on last name;Exact match on address</AddressVerificationResult>
-          <AddressUnitMismatchResult code="  "/>
-          <PhoneVerificationResult code="M ">Phone missing (search information not received)</PhoneVerificationResult>
-          <PhoneUnitMismatchResult code="  "/>
-          <AddressTypeResult code="S ">Single family dwelling</AddressTypeResult>
-          <AddressVerificationResidentialMatches>0001</AddressVerificationResidentialMatches>
-          <AddressVerificationBusinessMatches>0000</AddressVerificationBusinessMatches>
-          <PhoneVerificationResidentialMatches>0000</PhoneVerificationResidentialMatches>
-          <PhoneVerificationBusinessMatches>0000</PhoneVerificationBusinessMatches>
-          <AddressHighRiskResult code="N ">No address high risk information found</AddressHighRiskResult>
-          <PhoneHighRiskResult code="N ">No phone high risk information found</PhoneHighRiskResult>
-          <COAResult code="N ">No change of address information found</COAResult>
-          <SSNResult code="M ">SSN is missing;no match found using name/address search</SSNResult>
-          <EDABestPickScore/>
-          <EDARecordsReturned/>
-          <AcceptDeclineFlag code=" "/>
-          <EDAResult code="  "/>
-          <CheckpointScore>625</CheckpointScore>
-          <Result code="R">Residential</Result>
-          <AuditNumber>e655eb1c-4127-4b59-8</AuditNumber>
-          <ShortAuditNumber>160-92505</ShortAuditNumber>
-          <DriverLicenseResult code="M">Driver License number is missing</DriverLicenseResult>
-          <MonthOfBirth/>
-          <DayOfBirth/>
-          <YearOfBirth/>
-          <DateOfBirthMatch code="6">DOB not provided on request</DateOfBirthMatch>
-          <OFACResult code="1 ">No match</OFACResult>
-          <StandardizedAddresRecordsReturned>01</StandardizedAddresRecordsReturned>
-          <ResidentialAddressDetailRecordsReturned>01</ResidentialAddressDetailRecordsReturned>
-          <BusinessAddressDetailRecordsReturned>00</BusinessAddressDetailRecordsReturned>
-          <AddressHighRiskDetailRecordsReturned>00</AddressHighRiskDetailRecordsReturned>
-          <AddressHighRiskDescriptionRecordsReturned>01</AddressHighRiskDescriptionRecordsReturned>
-          <ResidentialPhoneDetailRecordsReturned>00</ResidentialPhoneDetailRecordsReturned>
-          <BusinessPhoneDetailRecordsReturned>00</BusinessPhoneDetailRecordsReturned>
-          <PhoneHighRiskDetailRecordsReturned>00</PhoneHighRiskDetailRecordsReturned>
-          <PhoneHighRiskDescriptionRecordsReturned>00</PhoneHighRiskDescriptionRecordsReturned>
-          <SSNAddressDetailRecordsReturned>00</SSNAddressDetailRecordsReturned>
-          <ValidationSegmentsReturned>01</ValidationSegmentsReturned>
-          <DriverLicenseSegmentsReturned>00</DriverLicenseSegmentsReturned>
-          <OFACRecordSegmentsReturned>00</OFACRecordSegmentsReturned>
-          <AuditRequestInformationRecordsReturned>00</AuditRequestInformationRecordsReturned>
-          <COARecordsReturned>00</COARecordsReturned>
-          <COADescriptionRecordsReturned>00</COADescriptionRecordsReturned>
-          <PreviousAddressesReturned>00</PreviousAddressesReturned>
-          <SSNFinderAddressesReturned>00</SSNFinderAddressesReturned>
-        </GeneralResults>
-        <StandardizedAddressDetail>
-          <Surname>BROWN              </Surname>
-          <FirstName>BARBARA   </FirstName>
-          <Initial/>
-          <Address>6537 DENMEAD ST                    </Address>
-          <City>LAKEWOOD                    </City>
-          <State>CA</State>
-          <ZipCode>90713</ZipCode>
-          <ZipPlus4>2118</ZipPlus4>
-        </StandardizedAddressDetail>
-        <ResidentialAddressDetail>
-          <Surname>BROWN              </Surname>
-          <FirstName>BARBARBA  </FirstName>
-          <Initial/>
-          <Address>6537 DENMEAD ST                    </Address>
-          <City>LAKEWOOD                    </City>
-          <State>CA</State>
-          <ZipCode>90713</ZipCode>
-          <ZipPlus4>2118</ZipPlus4>
-          <AreaCode/>
-          <Phone/>
-          <SpouseName/>
-          <OtherHouseholdMemberName1/>
-          <OtherHouseholdMemberName2/>
-          <OtherHouseholdMemberName3/>
-          <LastUpdatedDate>20010414</LastUpdatedDate>
-          <MonthsAtResidence>0067</MonthsAtResidence>
-        </ResidentialAddressDetail>
-        <AddressHighRiskDetail>
-          <BusinessName/>
-          <Address/>
-          <City/>
-          <State/>
-          <ZipCode/>
-          <ZipPlus4/>
-          <AreaCode/>
-          <Phone/>
-        </AddressHighRiskDetail>
-        <AddressHighRiskDescription>
-          <HighRiskDescription>No high risk business at address/phone            </HighRiskDescription>
-        </AddressHighRiskDescription>
-        <ResidentialPhoneDetail>
-          <Surname/>
-          <FirstName/>
-          <Initial/>
-          <Address/>
-          <City/>
-          <State/>
-          <ZipCode/>
-          <ZipPlus4/>
-          <AreaCode/>
-          <Phone/>
-          <SpouseName/>
-          <OtherHouseholdMemberName1/>
-          <OtherHouseholdMemberName2/>
-          <OtherHouseholdMemberName3/>
-          <LastTouched/>
-          <MonthsAtResidence/>
-        </ResidentialPhoneDetail>
-        <PhoneHighRiskDetail>
-          <BusinessName/>
-          <Address/>
-          <City/>
-          <State/>
-          <ZipCode/>
-          <ZipPlus4/>
-          <AreaCode/>
-          <Phone/>
-        </PhoneHighRiskDetail>
-        <PhoneHighRiskDescription>
-          <HighRiskDescription/>
-        </PhoneHighRiskDescription>
-        <ChangeOfAddressDetail>
-          <Name/>
-          <Address/>
-          <City/>
-          <State/>
-          <ZipCode/>
-          <ZipPlus4/>
-          <ReportedDate/>
-          <LastTouched/>
-        </ChangeOfAddressDetail>
-        <ValidationSegment>
-          <Surname>BROWN              </Surname>
-          <FirstName>BARBARA   </FirstName>
-          <MiddleInitial/>
-          <SSN/>
-          <SSNIssueState/>
-          <SSNDeceased code=" ">SSN not provided or validated</SSNDeceased>
-          <SSNFormat code=" ">SSN not provided or validated</SSNFormat>
-          <SSNIssueStartRange/>
-          <SSNIssueEndRange/>
-          <SSNIssueResultCode code=" ">SSN not provided or validated</SSNIssueResultCode>
-          <DriversLicenseFormatValidation code=" ">Driver's license not provided or validated</DriversLicenseFormatValidation>
-          <OFACValidationResult code="1 ">No match</OFACValidationResult>
-        </ValidationSegment>
-        <OFACRecordSegment>
-          <OFACRecord/>
-        </OFACRecordSegment>
-      </Checkpoint>
-      <CCNumerics/>
-      <CCStrings/>
-      <KBAScore>
-        <General>
-          <KBAResultCode>0</KBAResultCode>
-          <KBAResultCodeDescription>KBA processing successful questions returned</KBAResultCodeDescription>
-          <PriorUsage>
-            <ExceededUseLimitCode>N</ExceededUseLimitCode>
-            <ConsumerTotal/>
-            <ClientUseLimitPeriod>720</ClientUseLimitPeriod>
-            <ClientUseLimitCount>0</ClientUseLimitCount>
-            <TotalUseLimitPeriod>720</TotalUseLimitPeriod>
-            <TotalUseLimitCount>0</TotalUseLimitCount>
-            <ConsumerSSNTotal>0</ConsumerSSNTotal>
-            <ClientSSNUseLimitPeriod>0</ClientSSNUseLimitPeriod>
-            <ClientSSNUseLimitCount>0</ClientSSNUseLimitCount>
-            <TotalSSNUseLimitPeriod>0</TotalSSNUseLimitPeriod>
-            <TotalSSNUseLimitCount>0</TotalSSNUseLimitCount>
-            <ConcurrentPINTotal>0</ConcurrentPINTotal>
-            <ClientConcurrentPINLimitCount>0</ClientConcurrentPINLimitCount>
-            <CompanyConcurrentPINLimitCount>0</CompanyConcurrentPINLimitCount>
-            <GlobalConcurrentPINLimitCount>0</GlobalConcurrentPINLimitCount>
-          </PriorUsage>
-        </General>
-        <ScoreSummary>
-          <AcceptReferCode>REF</AcceptReferCode>
-          <DecisionOverrideIndicator>N</DecisionOverrideIndicator>
-          <DecisionOverrideReason/>
-          <PreciseIDScore>0</PreciseIDScore>
-          <OutWalletScore>0</OutWalletScore>
-          <OutWalletFormula>(0/333)*100</OutWalletFormula>
-          <ProgressiveQuestionAchieved>N</ProgressiveQuestionAchieved>
-          <ChampionChallengerIndicator>N</ChampionChallengerIndicator>
-          <RiskStrategyNum>1</RiskStrategyNum>
-          <RiskStrategyDescription>Default Risk Strategy</RiskStrategyDescription>
-          <QuestionConfigNum>1</QuestionConfigNum>
-          <QuestionConfigDescription>Default Question Configuration                                                                      </QuestionConfigDescription>
-          <DecisionMatrixNum>1</DecisionMatrixNum>
-          <DecisionMatrixDescription>Default Decision Matrix</DecisionMatrixDescription>
-          <UserDefinedParameters>
-            <UserDefinedTextName1/>
-            <UserDefinedTextValue1/>
-            <UserDefinedTextName2/>
-            <UserDefinedTextValue2/>
-            <UserDefinedTextName3/>
-            <UserDefinedTextValue3/>
-            <UserDefinedTextName4/>
-            <UserDefinedTextValue4/>
-            <UserDefinedNumName1/>
-            <UserDefinedNumValue1/>
-            <UserDefinedNumName2/>
-            <UserDefinedNumValue2/>
-            <UserDefinedNumName3/>
-            <UserDefinedNumValue3/>
-            <UserDefinedNumName4/>
-            <UserDefinedNumValue4/>
-            <UserDefinedDateName1/>
-            <UserDefinedDateValue1/>
-            <UserDefinedDateName2/>
-            <UserDefinedDateValue2/>
-          </UserDefinedParameters>
-        </ScoreSummary>
-        <GradedAnswer>
-          <AnswerSet>
-            <QuestionType>12</QuestionType>
-            <QuestionTypeDescription>YEAR OF BIRTH</QuestionTypeDescription>
-            <CreditType>N</CreditType>
-            <AnswerResult>W</AnswerResult>
-            <QuestionWeight>76</QuestionWeight>
-          </AnswerSet>
-          <AnswerSet>
-            <QuestionType>33</QuestionType>
-            <QuestionTypeDescription>MORTGAGE AMOUNT - DIV MIRROR</QuestionTypeDescription>
-            <CreditType>C</CreditType>
-            <AnswerResult>W</AnswerResult>
-            <QuestionWeight>88</QuestionWeight>
-          </AnswerSet>
-          <AnswerSet>
-            <QuestionType>49</QuestionType>
-            <QuestionTypeDescription>HIGH SCHOOL - DIV</QuestionTypeDescription>
-            <CreditType>N</CreditType>
-            <AnswerResult>W</AnswerResult>
-            <QuestionWeight>99</QuestionWeight>
-          </AnswerSet>
-          <AnswerSet>
-            <QuestionType>7</QuestionType>
-            <QuestionTypeDescription>PREVIOUS STREET OF RESIDENCE</QuestionTypeDescription>
-            <CreditType>N</CreditType>
-            <AnswerResult>W</AnswerResult>
-            <QuestionWeight>70</QuestionWeight>
-          </AnswerSet>
-        </GradedAnswer>
-      </KBAScore>
-    </PreciseIDServer>
-  </Products>
-</NetConnectResponse>
+<?xml version="1.0" encoding="utf-8"?>
+<Experian>
+  <FraudSolutions>
+    <Response>
+      <Products>
+        <PreciseIDServer>
+          <PIDXMLVersion>06.00</PIDXMLVersion>
+          <SessionID>ABD78890875A0A122CAE729944D0C426.pidd1v-1403100745130210016413827</SessionID>
+          <Header>
+            <ReportDate>03102014</ReportDate>
+            <ReportTime>074514</ReportTime>
+            <ReferenceNumber>XML PROD OP 19</ReferenceNumber>
+            <ProductOption>21</ProductOption>
+          </Header>
+          <Messages/>
+          <Summary>
+            <TransactionID>6259966</TransactionID>
+            <InitialDecision>REF</InitialDecision>
+            <FinalDecision>REF</FinalDecision>
+            <Scores>
+              <ComplianceIndicator>RE</ComplianceIndicator>
+              <ComplianceDescription>Refer</ComplianceDescription>
+            </Scores>
+            <CrossReferenceIndicatorsGrid>
+              <FullNameVerifiesToAddress code="NM">NO Match</FullNameVerifiesToAddress>
+              <FullNameVerifiesToSSN code="NM">NO Match</FullNameVerifiesToSSN>
+              <FullNameVerifiesToDL code="NM">NO Match</FullNameVerifiesToDL>
+              <FullNameVerifiesToPhone code="NM">NO Match</FullNameVerifiesToPhone>
+              <SurnameOnlyVerifiesToAddress code="MA">Match</SurnameOnlyVerifiesToAddress>
+              <SurnameOnlyVerifiesToSSN code="MA">NO Match</SurnameOnlyVerifiesToSSN>
+              <SurnameOnlyVerifiesToDL code="NM">NO Match</SurnameOnlyVerifiesToDL>
+              <SurnameOnlyVerifiesToPhone code="NM">NO Match</SurnameOnlyVerifiesToPhone>
+              <AddressVerifiesToFullName code="NM">NO Match</AddressVerifiesToFullName>
+              <AddressVerifiesToSurnameOnly code="MA">Match</AddressVerifiesToSurnameOnly>
+              <AddressVerifiesToSSN code="NM">NO Match</AddressVerifiesToSSN>
+              <AddressVerifiesToDL code="NM">NO Match</AddressVerifiesToDL>
+              <AddressVerifiesToPhone code="NM">NO Match</AddressVerifiesToPhone>
+              <SSNVerifiesToFullName code="NM">NO Match</SSNVerifiesToFullName>
+              <SSNVerifiesToSurnameOnly code="NM">NO Match</SSNVerifiesToSurnameOnly>
+              <SSNVerifiesToAddress code="NM">NO Match</SSNVerifiesToAddress>
+              <DLVerifiesToFullName code="NM">NO Match</DLVerifiesToFullName>
+              <DLVerifiesToSurnameOnly code="NM">NO Match</DLVerifiesToSurnameOnly>
+              <DLVerifiesToAddress code="NM">NO Match</DLVerifiesToAddress>
+              <PhoneVerifiesToFullName code="NM">NO Match</PhoneVerifiesToFullName>
+              <PhoneVerifiesToSurnameOnly code="NM">NO Match</PhoneVerifiesToSurnameOnly>
+              <PhoneVerifiesToAddress code="NM">NO Match</PhoneVerifiesToAddress>
+            </CrossReferenceIndicatorsGrid>
+            <DateOfBirthMatch code="6">DOB not provided on request</DateOfBirthMatch>
+          </Summary>
+          <GLBDetail>
+            <FraudShield>
+              <Indicator code="01">N</Indicator>
+              <Indicator code="02">N</Indicator>
+              <Indicator code="03">N</Indicator>
+              <Indicator code="04">N</Indicator>
+              <Indicator code="05">N</Indicator>
+              <Indicator code="06">N</Indicator>
+              <Indicator code="10">N</Indicator>
+              <Indicator code="11">N</Indicator>
+              <Indicator code="13">N</Indicator>
+              <Indicator code="14">N</Indicator>
+              <Indicator code="15">N</Indicator>
+              <Indicator code="16">N</Indicator>
+              <Indicator code="17">N</Indicator>
+              <Indicator code="18">N</Indicator>
+              <Indicator code="21">N</Indicator>
+              <Indicator code="25">N</Indicator>
+              <Indicator code="26">N</Indicator>
+            </FraudShield>
+          </GLBDetail>
+          <PreciseMatch>
+            <Version>01</Version>
+            <ResponseStatusCode code="00">Data found for search request</ResponseStatusCode>
+            <PreciseMatchScore>625</PreciseMatchScore>
+            <PreciseMatchDecision code="R">Residential</PreciseMatchDecision>
+            <Addresses>
+              <Address>
+                <Summary>
+                  <VerificationResult code="G1">First name does not match or is missing, exact match on last name;Exact match on address</VerificationResult>
+                  <UnitMismatchResult code="  "/>
+                  <Type code="S ">Single family dwelling</Type>
+                  <Counts>
+                    <ResidentialAddressMatchCount>0001</ResidentialAddressMatchCount>
+                    <BusinessAddressMatchCount>0000</BusinessAddressMatchCount>
+                    <StandardizedAddressReturnCount>01</StandardizedAddressReturnCount>
+                    <ResidentialAddressReturnCount>01</ResidentialAddressReturnCount>
+                    <BusinessAddressReturnCount>00</BusinessAddressReturnCount>
+                    <HighRiskAddressReturnCount>00</HighRiskAddressReturnCount>
+                  </Counts>
+                  <HighRiskResult code="N ">No address high risk information found</HighRiskResult>
+                </Summary>
+                <Detail>
+                  <StandardizedAddressRcd>
+                    <Surname>BROWN              </Surname>
+                    <FirstName>BARBARA   </FirstName>
+                    <Middle/>
+                    <Address>6537 DENMEAD ST                    </Address>
+                    <City>LAKEWOOD                    </City>
+                    <State>CA</State>
+                    <ZipCode>90713</ZipCode>
+                    <ZipPlus4>2118</ZipPlus4>
+                  </StandardizedAddressRcd>
+                  <ResidentialAddressRcd>
+                    <Surname>BROWN              </Surname>
+                    <FirstName>BARBARBA  </FirstName>
+                    <Middle/>
+                    <Address>6537 DENMEAD ST                    </Address>
+                    <City>LAKEWOOD                    </City>
+                    <State>CA</State>
+                    <ZipCode>90713</ZipCode>
+                    <ZipPlus4>2118</ZipPlus4>
+                    <AreaCode/>
+                    <Phone/>
+                    <OtherHouseholdMembers>
+                      <Name/>
+                      <Name/>
+                    </OtherHouseholdMembers>
+                    <LastUpdatedDate>20010414</LastUpdatedDate>
+                    <MonthsAtResidence>0067</MonthsAtResidence>
+                  </ResidentialAddressRcd>
+                  <HighRiskAddressRcd>
+                    <BusinessName/>
+                    <Address/>
+                    <City/>
+                    <State/>
+                    <ZipCode/>
+                    <ZipPlus4/>
+                    <AreaCode/>
+                    <Phone/>
+                  </HighRiskAddressRcd>
+                  <HighRiskAddressDescription>
+                    <HighRiskDescription>No high risk business at address/phone            </HighRiskDescription>
+                  </HighRiskAddressDescription>
+                </Detail>
+              </Address>
+            </Addresses>
+            <Phones>
+              <Phone>
+                <Summary>
+                  <VerificationResult code="M ">Phone missing (search information not received)</VerificationResult>
+                  <Counts>
+                    <ResidentialPhoneMatchCount>0000</ResidentialPhoneMatchCount>
+                    <BusinessPhoneMatchCount>0000</BusinessPhoneMatchCount>
+                    <ResidentialPhoneReturnCount>00</ResidentialPhoneReturnCount>
+                    <BusinessPhoneReturnCount>00</BusinessPhoneReturnCount>
+                    <HighRiskPhoneReturnCount>00</HighRiskPhoneReturnCount>
+                  </Counts>
+                  <HighRiskResult code="N ">No phone high risk information found</HighRiskResult>
+                </Summary>
+                <Detail>
+                  <ResidentialPhoneRcd>
+                    <Surname/>
+                    <FirstName/>
+                    <Middle/>
+                    <Address/>
+                    <City/>
+                    <State/>
+                    <ZipCode/>
+                    <ZipPlus4/>
+                    <AreaCode/>
+                    <Phone/>
+                    <OtherHouseholdMembers>
+                      <Name/>
+                      <Name/>
+                    </OtherHouseholdMembers>
+                    <LastUpdatedDate/>
+                    <MonthsAtResidence/>
+                  </ResidentialPhoneRcd>
+                  <HighRiskPhoneRcd>
+                    <BusinessName/>
+                    <Address/>
+                    <City/>
+                    <State/>
+                    <ZipCode/>
+                    <ZipPlus4/>
+                    <AreaCode/>
+                    <Phone/>
+                  </HighRiskPhoneRcd>
+                  <HighRiskPhoneDescription>
+                    <HighRiskDescription/>
+                  </HighRiskPhoneDescription>
+                </Detail>
+              </Phone>
+            </Phones>
+            <ChangeOfAddresses>
+              <ChangeOfAddress>
+                <Summary>
+                  <VerificationResult code="N ">No change of address information found</VerificationResult>
+                  <Counts>
+                    <ChangeOfAddressReturnCount>00</ChangeOfAddressReturnCount>
+                  </Counts>
+                </Summary>
+                <Detail>
+                  <ChangeOfAddressRcd>
+                    <Name/>
+                    <Address/>
+                    <City/>
+                    <State/>
+                    <ZipCode/>
+                    <ZipPlus4/>
+                    <ReportedDate/>
+                    <LastUpdatedDate/>
+                  </ChangeOfAddressRcd>
+                </Detail>
+              </ChangeOfAddress>
+            </ChangeOfAddresses>
+            <ConsumerID>
+              <Summary>
+                <IssueState/>
+                <DeceasedResult code=" ">SSN not provided or validated</DeceasedResult>
+                <FormatResult code=" ">SSN not provided or validated</FormatResult>
+                <IssueStartRange/>
+                <IssueEndRange/>
+                <IssueResult code=" ">SSN not provided or validated</IssueResult>
+                <Counts>
+                  <VerificationResult code="M ">SSN is missing;no match found using name/address search</VerificationResult>
+                  <ConsumerIDReturnCount>00</ConsumerIDReturnCount>
+                </Counts>
+              </Summary>
+            </ConsumerID>
+            <DriverLicense>
+              <Summary>
+                <VerificationResult code="M">Driver License number is missing</VerificationResult>
+                <Counts>
+                  <DriverLicenseReturnCount>00</DriverLicenseReturnCount>
+                </Counts>
+              </Summary>
+            </DriverLicense>
+            <DateOfBirth>
+              <Summary>
+                <MonthOfBirth/>
+                <DayOfBirth/>
+                <YearOfBirth/>
+                <MatchResult code="6">DOB not provided on request</MatchResult>
+              </Summary>
+            </DateOfBirth>
+            <OFAC>
+              <Summary>
+                <VerificationResult code="1 ">No match</VerificationResult>
+                <Counts>
+                  <OFACReturnCount>00</OFACReturnCount>
+                </Counts>
+              </Summary>
+              <Detail>
+                <OFACRecord/>
+              </Detail>
+            </OFAC>
+            <PreviousAddresses>
+              <Summary>
+                <Counts>
+                  <PreviousAddrReturnCount>00</PreviousAddrReturnCount>
+                </Counts>
+              </Summary>
+            </PreviousAddresses>
+            <SSNFinder>
+              <Summary>
+                <Counts>
+                  <SSNFinderReturnCount>00</SSNFinderReturnCount>
+                </Counts>
+              </Summary>
+            </SSNFinder>
+          </PreciseMatch>
+          <CCNumerics/>
+          <CCStrings/>
+          <KBAScore>
+            <General>
+              <KBAResultCode>0</KBAResultCode>
+              <KBAResultCodeDescription>KBA processing successful questions returned</KBAResultCodeDescription>
+              <PriorUsage>
+                <ExceededUseLimitCode>N</ExceededUseLimitCode>
+                <ConsumerTotal/>
+                <ClientUseLimitPeriod>720</ClientUseLimitPeriod>
+                <ClientUseLimitCount>0</ClientUseLimitCount>
+                <TotalUseLimitPeriod>720</TotalUseLimitPeriod>
+                <TotalUseLimitCount>0</TotalUseLimitCount>
+                <ConsumerSSNTotal>0</ConsumerSSNTotal>
+                <ClientSSNUseLimitPeriod>0</ClientSSNUseLimitPeriod>
+                <ClientSSNUseLimitCount>0</ClientSSNUseLimitCount>
+                <TotalSSNUseLimitPeriod>0</TotalSSNUseLimitPeriod>
+                <TotalSSNUseLimitCount>0</TotalSSNUseLimitCount>
+                <ConcurrentPINTotal>0</ConcurrentPINTotal>
+                <ClientConcurrentPINLimitCount>0</ClientConcurrentPINLimitCount>
+                <CompanyConcurrentPINLimitCount>0</CompanyConcurrentPINLimitCount>
+                <GlobalConcurrentPINLimitCount>0</GlobalConcurrentPINLimitCount>
+              </PriorUsage>
+            </General>
+            <ScoreSummary>
+              <AcceptReferCode>REF</AcceptReferCode>
+              <DecisionOverrideIndicator>N</DecisionOverrideIndicator>
+              <DecisionOverrideReason/>
+              <PreciseIDScore>0</PreciseIDScore>
+              <OutWalletScore>0</OutWalletScore>
+              <OutWalletFormula>(0/333)*100</OutWalletFormula>
+              <ProgressiveQuestionAchieved>N</ProgressiveQuestionAchieved>
+              <ChampionChallengerIndicator>N</ChampionChallengerIndicator>
+              <RiskStrategyNum>1</RiskStrategyNum>
+              <RiskStrategyDescription>Default Risk Strategy</RiskStrategyDescription>
+              <QuestionConfigNum>1</QuestionConfigNum>
+              <QuestionConfigDescription>Default Question Configuration                                                                      </QuestionConfigDescription>
+              <DecisionMatrixNum>1</DecisionMatrixNum>
+              <DecisionMatrixDescription>Default Decision Matrix</DecisionMatrixDescription>
+              <UserDefinedParameters>
+                <UserDefinedTextName1/>
+                <UserDefinedTextValue1/>
+                <UserDefinedTextName2/>
+                <UserDefinedTextValue2/>
+                <UserDefinedTextName3/>
+                <UserDefinedTextValue3/>
+                <UserDefinedTextName4/>
+                <UserDefinedTextValue4/>
+                <UserDefinedNumName1/>
+                <UserDefinedNumValue1/>
+                <UserDefinedNumName2/>
+                <UserDefinedNumValue2/>
+                <UserDefinedNumName3/>
+                <UserDefinedNumValue3/>
+                <UserDefinedNumName4/>
+                <UserDefinedNumValue4/>
+                <UserDefinedDateName1/>
+                <UserDefinedDateValue1/>
+                <UserDefinedDateName2/>
+                <UserDefinedDateValue2/>
+              </UserDefinedParameters>
+            </ScoreSummary>
+            <GradedAnswer>
+              <AnswerSet>
+                <QuestionType>12</QuestionType>
+                <QuestionTypeDescription>YEAR OF BIRTH</QuestionTypeDescription>
+                <CreditType>N</CreditType>
+                <AnswerResult>W</AnswerResult>
+                <QuestionWeight>76</QuestionWeight>
+              </AnswerSet>
+              <AnswerSet>
+                <QuestionType>33</QuestionType>
+                <QuestionTypeDescription>MORTGAGE AMOUNT - DIV MIRROR</QuestionTypeDescription>
+                <CreditType>C</CreditType>
+                <AnswerResult>W</AnswerResult>
+                <QuestionWeight>88</QuestionWeight>
+              </AnswerSet>
+              <AnswerSet>
+                <QuestionType>49</QuestionType>
+                <QuestionTypeDescription>HIGH SCHOOL - DIV</QuestionTypeDescription>
+                <CreditType>N</CreditType>
+                <AnswerResult>W</AnswerResult>
+                <QuestionWeight>99</QuestionWeight>
+              </AnswerSet>
+              <AnswerSet>
+                <QuestionType>7</QuestionType>
+                <QuestionTypeDescription>PREVIOUS STREET OF RESIDENCE</QuestionTypeDescription>
+                <CreditType>N</CreditType>
+                <AnswerResult>W</AnswerResult>
+                <QuestionWeight>70</QuestionWeight>
+              </AnswerSet>
+            </GradedAnswer>
+          </KBAScore>
+        </PreciseIDServer>
+      </Products>
+    </Response>
+  </FraudSolutions>
+</Experian>

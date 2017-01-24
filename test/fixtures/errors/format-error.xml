@@ -1,0 +1,5 @@
+<?xml version="1.0" standalone="no"?>
+<NetConnectResponse>
+  <CompletionCode>1000</CompletionCode>
+  <ErrorMessage>Invalid Request Format</ErrorMessage>
+</NetConnectResponse>
