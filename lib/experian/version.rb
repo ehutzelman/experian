@@ -1,3 +1,3 @@
 module Experian
-  VERSION = "0.2.0.SIT"
+  VERSION = "0.2.1.SIT"
 end
