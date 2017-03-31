@@ -10,7 +10,11 @@ module Experian
         "&#{encode_params}"
       end
 
-      private 
+      def headers
+        { "Content-Type" => "application/x-www-form-urlencoded" }
+      end
+
+      private
 
       def encode_params
         params = {
